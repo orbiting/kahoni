@@ -157,8 +157,24 @@ class Header extends Component {
 
     const menuItems = [
       {
+        label: t('menu/feed'),
+        href: '/feed'
+      },
+      {
         label: t('menu/article'),
         href: '/article'
+      },
+      {
+        label: t('menu/dossier'),
+        href: '/dossier'
+      },
+      {
+        label: t('menu/forum'),
+        href: '/forum'
+      },
+      {
+        label: t('menu/join'),
+        href: '/join'
       }
     ]
 

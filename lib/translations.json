@@ -1,10 +1,26 @@
 {
-  "updated": "2017-07-13T15:24:48.374Z",
+  "updated": "2017-07-13T15:52:32.358Z",
   "title": "live",
   "data": [
     {
+      "key": "menu/feed",
+      "value": "Feed"
+    },
+    {
       "key": "menu/article",
       "value": "Artikel"
+    },
+    {
+      "key": "menu/dossier",
+      "value": "Dossier"
+    },
+    {
+      "key": "menu/forum",
+      "value": "Forum"
+    },
+    {
+      "key": "menu/join",
+      "value": "Mitmachen"
     },
     {
       "key": "footer/contact/title",

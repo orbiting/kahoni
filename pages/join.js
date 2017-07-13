@@ -1,9 +1,10 @@
 import React from 'react'
 import App from '../components/App'
+import Frame from '../components/Frame'
 
-export default () =>
-  <App>
-    <article>
-      <h1>Join</h1>
-    </article>
-  </App>
+export default ({ url }) =>
+	<Frame url={url}>
+		<article>
+			<h1>Mitmachen</h1>
+		</article>
+	</Frame>
