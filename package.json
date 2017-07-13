@@ -1,0 +1,22 @@
+{
+  "name": "kahoni",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "graphql": "^0.9.3",
+    "isomorphic-fetch": "^2.2.1",
+    "next": "latest",
+    "prop-types": "^15.5.8",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-apollo": "^1.1.3"
+  },
+  "license": "BSD-3-Clause",
+  "devDependencies": {
+    "prettier": "^1.5.2"
+  }
+}
