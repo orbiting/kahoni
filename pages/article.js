@@ -1,9 +1,9 @@
 import React from 'react'
-import App from '../components/App'
+import Frame from '../components/Frame'
 
-export default () =>
-  <App>
+export default ({ url }) =>
+  <Frame url={url}>
     <article>
       <h1>Artikel</h1>
     </article>
-  </App>
+  </Frame>
