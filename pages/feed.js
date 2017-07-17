@@ -1,6 +1,7 @@
 import React from 'react'
 import App from '../components/App'
 import Frame from '../components/Frame'
+import Loader from '../components/Loader'
 import { gql, graphql } from 'react-apollo'
 import withData from '../lib/withData'
 
@@ -20,21 +21,23 @@ const allArticles = gql`
 const FeedList = graphql(
   allArticles
 )(({ data: { loading, error, allArticles } }) => {
-  if (error) return <span>{`${error}`}</span>
-
-  if (allArticles) {
-    return (
-      <div>
-        {allArticles.map(article =>
-          <div key={article.id}>
-            {article.title}
+  return (
+    <Loader
+      loading={loading}
+      error={error}
+      render={() => {
+        return (
+          <div>
+            {allArticles.map(article =>
+              <div key={article.id}>
+                {article.title}
+              </div>
+            )}
           </div>
-        )}
-      </div>
-    )
-  }
-
-  return <div>Loading</div>
+        )
+      }}
+    />
+  )
 })
 
 export default withData(({ url }) =>
