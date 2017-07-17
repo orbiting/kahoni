@@ -2,17 +2,19 @@
   "name": "kahoni",
   "version": "0.1.0",
   "scripts": {
-    "dev": "next",
+    "dev": "NODE_ENV=development nodemon -w server.js -w routes.js server.js",
     "build": "next build",
-    "start": "next start",
+    "start": "NODE_ENV=production node server.js",
     "translations": "gsheets --key=1V6wxlflk2wAnL2-PS5L1kxqg0wJP8uOi5RvxkhSX4i0 --title=live --pretty --out lib/translations.json"
   },
   "dependencies": {
     "@project-r/styleguide": "^0.4.9",
+    "express": "^4.15.3",
     "glamor": "^2.20.24",
     "graphql": "^0.9.3",
     "isomorphic-fetch": "^2.2.1",
     "next": "latest",
+    "next-routes": "^1.0.40",
     "prop-types": "^15.5.8",
     "react": "^15.5.4",
     "react-apollo": "^1.1.3",
@@ -20,7 +22,9 @@
   },
   "license": "BSD-3-Clause",
   "devDependencies": {
+    "dotenv": "^4.0.0",
     "gsheets": "^2.0.0",
+    "nodemon": "^1.11.0",
     "prettier": "^1.5.2"
   }
 }
