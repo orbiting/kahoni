@@ -26,17 +26,15 @@ const FeedList = graphql(
       loading={loading}
       error={error}
       render={() => {
-        if (allArticles) {
-          return (
-            <div>
-              {allArticles.map(article =>
-                <div key={article.id}>
-                  {article.title}
-                </div>
-              )}
-            </div>
-          )
-        }
+        return (
+          <div>
+            {allArticles.map(article =>
+              <div key={article.id}>
+                {article.title}
+              </div>
+            )}
+          </div>
+        )
       }}
     />
   )
