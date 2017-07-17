@@ -29,6 +29,7 @@ const article = gql`
 `
 
 const Article = graphql(article)(({ data: { loading, error, Article } }) => {
+  // TODO: Create components for Article and Comment.
   return (
     <Loader
       loading={loading}
