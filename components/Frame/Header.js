@@ -211,21 +211,6 @@ class Header extends Component {
                   url={url}
                 />}
             </div>
-            {opaque &&
-              <div {...styles.side}>
-                {mobile &&
-                  !hasEnded &&
-                  <Button
-                    block
-                    primary
-                    onClick={() => {
-                      Router.push('/pledge').then(() => window.scrollTo(0, 0))
-                    }}
-                    style={{ height: HEADER_HEIGHT_MOBILE }}
-                  >
-                    {t('header/button')}
-                  </Button>}
-              </div>}
           </Container>
         </div>
         {opaque &&
