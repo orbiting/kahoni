@@ -1,5 +1,7 @@
 const express = require('express')
 const next = require('next')
+const bodyParser = require('body-parser')
+const { createApolloFetch } = require('apollo-fetch')
 
 const routes = require('./routes')
 
@@ -12,6 +14,17 @@ const PORT = process.env.PORT || 3000
 
 const app = next({ dir: '.', dev: DEV })
 const handler = routes.getRequestHandler(app)
+
+const apolloFetch = createApolloFetch({
+  uri: process.env.GRAPH_CMS_URI
+}).use(({ request, options }, next) => {
+  if (!options.headers) {
+    options.headers = {}
+  }
+  options.headers['Authorization'] = `Bearer ${process.env.GRAPH_CMS_TOKEN}`
+
+  next()
+})
 
 app.prepare().then(() => {
   const server = express()
@@ -27,6 +40,12 @@ app.prepare().then(() => {
       return next()
     })
   }
+
+  server.post('/graphql', bodyParser.json(), (req, res) => {
+    apolloFetch(req.body)
+      .then(result => res.json(result))
+      .catch(error => res.status(503).json(error))
+  })
 
   server.use(handler)
 
