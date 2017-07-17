@@ -20,10 +20,7 @@ export default class MyDocument extends Document {
     }
   }
   render() {
-    const {
-      css,
-      env: { PIWIK_URL_BASE, PIWIK_SITE_ID, STATIC_BASE_URL }
-    } = this.props
+    const { css, env: { PIWIK_URL_BASE, PIWIK_SITE_ID } } = this.props
     const piwik = !!PIWIK_URL_BASE && !!PIWIK_SITE_ID
     return (
       <html>
@@ -36,33 +33,27 @@ export default class MyDocument extends Document {
           <link
             rel="apple-touch-icon"
             sizes="180x180"
-            href={`${STATIC_BASE_URL}/static/apple-touch-icon.png`}
+            href={`/static/apple-touch-icon.png`}
           />
           <link
             rel="icon"
             type="image/png"
-            href={`${STATIC_BASE_URL}/static/favicon-32x32.png`}
+            href={`/static/favicon-32x32.png`}
             sizes="32x32"
           />
           <link
             rel="icon"
             type="image/png"
-            href={`${STATIC_BASE_URL}/static/favicon-16x16.png`}
+            href={`/static/favicon-16x16.png`}
             sizes="16x16"
           />
-          <link
-            rel="manifest"
-            href={`${STATIC_BASE_URL}/static/manifest.json`}
-          />
+          <link rel="manifest" href={`/static/manifest.json`} />
           <link
             rel="mask-icon"
-            href={`${STATIC_BASE_URL}/static/safari-pinned-tab.svg`}
+            href={`/static/safari-pinned-tab.svg`}
             color="#000000"
           />
-          <link
-            rel="shortcut icon"
-            href={`${STATIC_BASE_URL}/static/favicon.ico`}
-          />
+          <link rel="shortcut icon" href={`/static/favicon.ico`} />
           {/* browserconfig.xml can contain other static references, we skip cdnifing it */}
           <meta
             name="msapplication-config"
