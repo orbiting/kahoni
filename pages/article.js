@@ -50,7 +50,7 @@ const Article = graphql(article)(({ data: { loading, error, Article } }) => {
                 {Article.body}
               </P>
               <P>
-                Dossier:&nbsp;
+                Dossier:{' '}
                 {Article.dossiers.map(dossier =>
                   <Link route="dossier" params={{ slug: dossier.slug }}>
                     {dossier.title}
@@ -65,6 +65,8 @@ const Article = graphql(article)(({ data: { loading, error, Article } }) => {
               )}
             </article>
           )
+        } else {
+          return <P>Artikel nicht gefunden</P>
         }
       }}
     />
