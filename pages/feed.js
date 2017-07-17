@@ -1,6 +1,6 @@
 import React from 'react'
-import App from '../components/App'
 import Frame from '../components/Frame'
+import { Link } from '../routes'
 import Loader from '../components/Loader'
 import { gql, graphql } from 'react-apollo'
 import withData from '../lib/withData'
@@ -9,6 +9,7 @@ const allArticles = gql`
   query allArticles {
     allArticles {
       id
+      slug
       title
       dossiers {
         id
@@ -18,7 +19,7 @@ const allArticles = gql`
   }
 `
 
-const FeedList = graphql(
+const Feed = graphql(
   allArticles
 )(({ data: { loading, error, allArticles } }) => {
   return (
@@ -30,7 +31,9 @@ const FeedList = graphql(
           <div>
             {allArticles.map(article =>
               <div key={article.id}>
-                {article.title}
+                <Link route="article" params={{ slug: article.slug }}>
+                  {article.title}
+                </Link>
               </div>
             )}
           </div>
@@ -44,7 +47,7 @@ export default withData(({ url }) =>
   <Frame url={url}>
     <article>
       <h1>Feed</h1>
-      <FeedList />
+      <Feed />
     </article>
   </Frame>
 )
