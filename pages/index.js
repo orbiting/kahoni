@@ -1,13 +1,10 @@
-import App from '../components/App'
-import Header from '../components/Header'
-import Submit from '../components/Submit'
-import PostList from '../components/PostList'
 import withData from '../lib/withData'
+import Frame from '../components/Frame'
 
-export default withData((props) => (
-  <App>
-    <Header pathname={props.url.pathname} />
-    <Submit />
-    <PostList />
-  </App>
-))
+import { H1 } from '@project-r/styleguide'
+
+export default withData(({ url }) =>
+  <Frame url={url}>
+    <H1>Es ist Zeit.</H1>
+  </Frame>
+)
