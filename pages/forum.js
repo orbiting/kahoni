@@ -1,10 +1,47 @@
 import React from 'react'
-import App from '../components/App'
 import Frame from '../components/Frame'
+import Loader from '../components/Loader'
+import { gql, graphql } from 'react-apollo'
+import withData from '../lib/withData'
 
-export default ({ url }) =>
-	<Frame url={url}>
-		<article>
-			<h1>Offene Fragen</h1>
-		</article>
-	</Frame>
+const allQuestions = gql`
+  query allQuestions {
+    allQuestions {
+      id
+      body
+    }
+  }
+`
+
+const QuestionList = graphql(
+  allQuestions
+)(({ data: { loading, error, allQuestions } }) => {
+  return (
+    <Loader
+      loading={loading}
+      error={error}
+      render={() => {
+        if (allQuestions) {
+          return (
+            <div>
+              {allQuestions.map(question =>
+                <div key={question.id}>
+                  {question.body}
+                </div>
+              )}
+            </div>
+          )
+        }
+      }}
+    />
+  )
+})
+
+export default withData(({ url }) =>
+  <Frame url={url}>
+    <article>
+      <h1>Offene Fragen</h1>
+      <QuestionList />
+    </article>
+  </Frame>
+)

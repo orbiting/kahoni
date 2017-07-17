@@ -161,14 +161,6 @@ class Header extends Component {
         href: '/feed'
       },
       {
-        label: t('menu/article'),
-        href: '/article'
-      },
-      {
-        label: t('menu/dossier'),
-        href: '/dossier'
-      },
-      {
         label: t('menu/forum'),
         href: '/forum'
       },
