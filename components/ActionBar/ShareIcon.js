@@ -24,7 +24,7 @@ const styles = {
   label: css({ display: 'block', marginBottom: 5 })
 }
 
-const Panel = ({ active, url }) => {
+const Panel = ({ url }) => {
   return (
     <div {...styles.panel}>
       <Label {...styles.label}>
@@ -38,34 +38,15 @@ const Panel = ({ active, url }) => {
   )
 }
 
-class ShareIcon extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      active: false
-    }
-  }
-
-  togglePanel = () => {
-    this.setState({
-      active: !this.state.active
-    })
-  }
-
-  render() {
-    const { fill, url } = this.props
-    const { active } = this.state
-
-    return (
+const ShareIcon = ({ fill, url, active }) => {
+  return (
+    <span>
       <span>
-        <span onClick={this.togglePanel} active={this.state.active}>
-          <IconLink fill={fill} icon={'share'} url={url} />
-        </span>
-        {active && <Panel url={url} />}
+        <IconLink fill={fill} icon={'share'} url={url} />
       </span>
-    )
-  }
+      {active && <Panel url={url} />}
+    </span>
+  )
 }
 
 export default ShareIcon

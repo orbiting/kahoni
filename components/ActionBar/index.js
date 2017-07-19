@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import IconLink from '../IconLink'
@@ -14,15 +14,38 @@ const styles = {
   })
 }
 
-const ActionBar = ({ url, fill }) => {
-  return (
-    <div {...styles.actionbar}>
-      <IconLink fill={fill} icon={'bookmark'} />
-      <ShareIcon fill={fill} url={url} />
-      <IconLink fill={fill} icon={'heart'} />
-      <IconLink fill={fill} icon={'comment'} />
-    </div>
-  )
+class ActionBar extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      sharePanelActive: false
+    }
+  }
+
+  toggleSharePanel = () => {
+    this.setState({
+      sharePanelActive: !this.state.sharePanelActive
+    })
+  }
+
+  render() {
+    const { fill, url } = this.props
+    return (
+      <div {...styles.actionbar}>
+        <IconLink fill={fill} icon={'bookmark'} />
+        <span onClick={this.toggleSharePanel}>
+          <ShareIcon
+            fill={fill}
+            url={url}
+            active={this.state.sharePanelActive}
+          />
+        </span>
+        <IconLink fill={fill} icon={'heart'} />
+        <IconLink fill={fill} icon={'comment'} />
+      </div>
+    )
+  }
 }
 
 ActionBar.propTypes = {
