@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import IconLink from '../IconLink'
-import ShareIcon from './ShareIcon'
+import SharePanel from './SharePanel'
 
 import { css } from 'glamor'
 
@@ -35,11 +35,8 @@ class ActionBar extends Component {
       <div {...styles.actionbar}>
         <IconLink fill={fill} icon={'bookmark'} />
         <span onClick={this.toggleSharePanel}>
-          <ShareIcon
-            fill={fill}
-            url={url}
-            active={this.state.sharePanelActive}
-          />
+          <IconLink fill={fill} icon={'share'} url={url} />
+          {this.state.sharePanelActive && <SharePanel url={url} />}
         </span>
         <IconLink fill={fill} icon={'heart'} />
         <IconLink fill={fill} icon={'comment'} />

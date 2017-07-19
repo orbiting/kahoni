@@ -24,7 +24,7 @@ const styles = {
   label: css({ display: 'block', marginBottom: 5 })
 }
 
-const Panel = ({ url }) => {
+const SharePanel = ({ url }) => {
   return (
     <div {...styles.panel}>
       <Label {...styles.label}>
@@ -38,15 +38,4 @@ const Panel = ({ url }) => {
   )
 }
 
-const ShareIcon = ({ fill, url, active }) => {
-  return (
-    <span>
-      <span>
-        <IconLink fill={fill} icon={'share'} url={url} />
-      </span>
-      {active && <Panel url={url} />}
-    </span>
-  )
-}
-
-export default ShareIcon
+export default SharePanel
