@@ -35,6 +35,8 @@ const Article = graphql(
   article
 )(({ data: { loading, error, Article }, url }) => {
   // TODO: Create components for Article and Comment.
+  // TODO: Use url.asPath for ActionBar url.
+  console.log(url)
   return (
     <Loader
       loading={loading}
@@ -50,7 +52,7 @@ const Article = graphql(
                 von {Article.author}
               </P>
               <ActionBar
-                url={PUBLIC_BASE_URL + url.pathname + '/' + url.query.slug}
+                url={PUBLIC_BASE_URL + `/artikel/${Article.slug}`}
                 emailSubject="{Article.title}"
               />
               <Lead>

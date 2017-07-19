@@ -30,10 +30,7 @@ const SharePanel = ({ url }) => {
       <Label {...styles.label}>
         Teilen Sie diesen Artikel mit Ihren Freunden:
       </Label>
-      <Share
-        url={PUBLIC_BASE_URL + url.pathname}
-        emailSubject={'TODO: Add article name'}
-      />
+      <Share url={url} emailSubject={'TODO: Add article name'} />
     </div>
   )
 }
