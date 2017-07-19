@@ -3,7 +3,6 @@ import { Link } from '../routes'
 import ActionBar from '../components/ActionBar/'
 import Frame from '../components/Frame'
 import Loader from '../components/Loader'
-import Share from '../components/Share'
 import { gql, graphql } from 'react-apollo'
 import withData from '../lib/withData'
 
