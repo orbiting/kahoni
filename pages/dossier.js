@@ -4,6 +4,7 @@ import ActionBar from '../components/ActionBar/'
 import ArticleSnippet from '../components/ArticleSnippet'
 import Frame from '../components/Frame'
 import Loader from '../components/Loader'
+import NewsletterBox from '../components/NewsletterBox'
 import { Link } from '../routes'
 import withData from '../lib/withData'
 
@@ -58,6 +59,7 @@ const Dossier = graphql(dossier)(({ data: { loading, error, Dossier } }) => {
                   <ArticleSnippet key={article.id} article={article} />
                 )}
               </div>
+              <NewsletterBox />
             </div>
           )
         }
