@@ -15,12 +15,7 @@ import {
 import Menu from './Menu'
 import Toggle from './Toggle'
 import LoadingBar from './LoadingBar'
-import {
-  SIDEBAR_WIDTH,
-  HEADER_HEIGHT,
-  HEADER_HEIGHT_MOBILE,
-  MENUBAR_HEIGHT
-} from './constants'
+import { HEADER_HEIGHT, HEADER_HEIGHT_MOBILE } from './constants'
 
 const styles = {
   bar: css({
@@ -40,24 +35,6 @@ const styles = {
       height: HEADER_HEIGHT
     },
     borderBottom: `1px solid ${colors.divider}`
-  }),
-  menuBar: css({
-    position: 'fixed',
-    zIndex: 10,
-    top: HEADER_HEIGHT_MOBILE,
-    left: 0,
-    right: 0,
-    height: MENUBAR_HEIGHT,
-    backgroundColor: '#fff',
-    borderBottom: `1px solid ${colors.divider}`,
-    [mediaQueries.mUp]: {
-      display: 'none'
-    }
-  }),
-  menuBarText: css({
-    fontSize: 32,
-    opacity: 0.3,
-    padding: '7px 15px'
   }),
   logo: css({
     paddingTop: 15,
@@ -88,16 +65,6 @@ const styles = {
   }),
   cover: css({
     marginBottom: 40
-  }),
-  side: css({
-    position: 'absolute',
-    right: 0,
-    top: 0,
-    width: '50%',
-    [mediaQueries.mUp]: {
-      right: CONTAINER_PADDING,
-      width: SIDEBAR_WIDTH
-    }
   })
 }
 
@@ -146,7 +113,7 @@ class Header extends Component {
     window.removeEventListener('resize', this.measure)
   }
   render() {
-    const { cover, sticky, sidebar, forceStatus, url, t } = this.props
+    const { cover, sticky, forceStatus, url, t } = this.props
     const { mobile, expanded, hasStatusSpace } = this.state
 
     const opaque = this.state.opaque || expanded
@@ -211,26 +178,14 @@ class Header extends Component {
                   url={url}
                 />}
             </div>
+            {mobile &&
+              <Toggle
+                expanded={expanded}
+                id="primary-menu"
+                onClick={() => this.setState({ expanded: !expanded })}
+              />}
           </Container>
         </div>
-        {opaque &&
-          <div
-            {...styles.menuBar}
-            onClick={() => this.setState({ expanded: !expanded })}
-          >
-            <div {...styles.menuBarText}>
-              {t.first(
-                [`menu${url.pathname}`, `footer${url.pathname}`],
-                {},
-                url.pathname
-              )}
-            </div>
-            <Toggle
-              expanded={expanded}
-              id="primary-menu"
-              onClick={() => this.setState({ expanded: !expanded })}
-            />
-          </div>}
         <LoadingBar />
         {!!cover &&
           <div {...styles.cover}>
