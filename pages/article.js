@@ -18,6 +18,7 @@ const article = gql`
       author
       body
       comments {
+        id
         body
       }
       dossiers {
@@ -25,6 +26,7 @@ const article = gql`
         title
         slug
       }
+      format
       id
       lead
       readingMinutes
@@ -46,19 +48,7 @@ const ArticlePage = graphql(
       error={error}
       render={() => {
         if (Article) {
-          return (
-            <ArticleElement
-              title={Article.title}
-              lead={Article.lead}
-              body={Article.body}
-              author={Article.author}
-              updatedAt={Article.updatedAt}
-              readingMinutes={Article.readingMinutes}
-              slug={Article.slug}
-              dossiers={Article.dossiers}
-              comments={Article.comments}
-            />
-          )
+          return <ArticleElement article={Article} />
         } else {
           return <P>Artikel nicht gefunden</P>
         }
