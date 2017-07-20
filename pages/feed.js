@@ -2,12 +2,31 @@ import React from 'react'
 import Frame from '../components/Frame'
 import { Link } from '../routes'
 import Loader from '../components/Loader'
+import { css, select } from 'glamor'
 import { gql, graphql } from 'react-apollo'
+import { swissTime } from '../lib/utils/formats'
 import withData from '../lib/withData'
+
+import { H2, Interaction, Label } from '@project-r/styleguide'
+
+const styles = {
+  article: css({
+    borderBottom: '1px solid #DADDDC',
+    padding: '20px 0'
+  }),
+  author: css({
+    marginTop: 0,
+    marginBottom: 0
+  })
+}
+
+const timeFormat = swissTime.format('%d. %B %Y')
 
 const allArticles = gql`
   query allArticles {
     allArticles {
+      author
+      updatedAt
       id
       slug
       title
@@ -18,6 +37,24 @@ const allArticles = gql`
     }
   }
 `
+const Article = ({ article }) => {
+  const date = new Date(article.updatedAt)
+  return (
+    <article key={article.id} {...styles.article}>
+      <H2 style={{ marginBottom: 0 }}>
+        <Link route="article" params={{ slug: article.slug }}>
+          {article.title}
+        </Link>
+      </H2>
+      <Interaction.P {...styles.author}>
+        Von {article.author}
+      </Interaction.P>
+      <Label {...styles.meta}>
+        {timeFormat(date)}
+      </Label>
+    </article>
+  )
+}
 
 const Feed = graphql(
   allArticles
@@ -29,13 +66,7 @@ const Feed = graphql(
       render={() => {
         return (
           <div>
-            {allArticles.map(article =>
-              <div key={article.id}>
-                <Link route="article" params={{ slug: article.slug }}>
-                  {article.title}
-                </Link>
-              </div>
-            )}
+            {allArticles.map(article => <Article article={article} />)}
           </div>
         )
       }}
@@ -45,9 +76,6 @@ const Feed = graphql(
 
 export default withData(({ url }) =>
   <Frame url={url}>
-    <article>
-      <h1>Feed</h1>
-      <Feed />
-    </article>
+    <Feed />
   </Frame>
 )
