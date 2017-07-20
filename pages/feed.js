@@ -40,7 +40,7 @@ const allArticles = gql`
 const Article = ({ article }) => {
   const date = new Date(article.updatedAt)
   return (
-    <article key={article.id} {...styles.article}>
+    <article {...styles.article}>
       <H2 style={{ marginBottom: 0 }}>
         <Link route="article" params={{ slug: article.slug }}>
           {article.title}
@@ -66,7 +66,9 @@ const Feed = graphql(
       render={() => {
         return (
           <div>
-            {allArticles.map(article => <Article article={article} />)}
+            {allArticles.map(article =>
+              <Article key={article.id} article={article} />
+            )}
           </div>
         )
       }}
