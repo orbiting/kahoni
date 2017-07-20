@@ -1,30 +1,25 @@
 const express = require('express')
 const next = require('next')
 const bodyParser = require('body-parser')
-const { createApolloFetch } = require('apollo-fetch')
-
-const routes = require('./routes')
+const { graphiqlExpress } = require('graphql-server-express')
 
 const DEV = process.env.NODE_ENV && process.env.NODE_ENV !== 'production'
 if (DEV || process.env.DOTENV) {
   require('dotenv').config()
 }
 
+const { cmsFetch } = require('./server/cms')
+const me = require('./server/me')
+const signIn = require('./server/signIn')
+const signOut = require('./server/signOut')
+const authorize = require('./server/authorize')
+
+const routes = require('./routes')
+
 const PORT = process.env.PORT || 3000
 
 const app = next({ dir: '.', dev: DEV })
 const handler = routes.getRequestHandler(app)
-
-const apolloFetch = createApolloFetch({
-  uri: process.env.GRAPH_CMS_URI
-}).use(({ request, options }, next) => {
-  if (!options.headers) {
-    options.headers = {}
-  }
-  options.headers['Authorization'] = `Bearer ${process.env.GRAPH_CMS_TOKEN}`
-
-  next()
-})
 
 app.prepare().then(() => {
   const server = express()
@@ -41,11 +36,30 @@ app.prepare().then(() => {
     })
   }
 
+  server.get('/authorize', authorize)
   server.post('/graphql', bodyParser.json(), (req, res) => {
-    apolloFetch(req.body)
-      .then(result => res.json(result))
-      .catch(error => res.status(503).json(error))
+    if (req.body.operationName === 'me') {
+      return me(req, res)
+    }
+    if (req.body.operationName === 'signIn') {
+      return signIn(req, res)
+    }
+    if (req.body.operationName === 'signOut') {
+      return signOut(req, res)
+    }
+
+    cmsFetch(req.body).then(result => res.json(result)).catch(error =>
+      res.status(503).json({
+        errors: [error.toString()]
+      })
+    )
   })
+  server.use(
+    '/graphiql',
+    graphiqlExpress({
+      endpointURL: '/graphql'
+    })
+  )
 
   server.use(handler)
 
