@@ -6,11 +6,16 @@ import SharePanel from './SharePanel'
 
 import { css } from 'glamor'
 
-import { colors } from '@project-r/styleguide'
+import { colors, mediaQueries } from '@project-r/styleguide'
 
 const styles = {
   actionbar: css({
-    position: 'relative'
+    padding: '10px 0',
+    position: 'relative',
+    [mediaQueries.onlyS]: {
+      borderTop: `1px solid ${colors.divider}`,
+      borderBottom: `1px solid ${colors.divider}`
+    }
   })
 }
 

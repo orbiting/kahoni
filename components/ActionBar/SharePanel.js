@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 
 import IconLink from '../IconLink'
-import Share from '../Share'
 
 import { css, merge, style } from 'glamor'
 
