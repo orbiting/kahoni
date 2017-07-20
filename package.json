@@ -11,6 +11,8 @@
     "@project-r/styleguide": "^0.4.9",
     "apollo-fetch": "^0.3.0",
     "body-parser": "^1.17.2",
+    "d3-format": "^1.2.0",
+    "d3-time-format": "^2.0.5",
     "express": "^4.15.3",
     "glamor": "^2.20.24",
     "graphql": "^0.9.3",
