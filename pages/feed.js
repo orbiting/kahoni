@@ -14,6 +14,7 @@ const allArticles = gql`
       author
       updatedAt
       id
+      readingMinutes
       slug
       title
       dossiers {
