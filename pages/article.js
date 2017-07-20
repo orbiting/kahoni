@@ -1,10 +1,12 @@
 import React from 'react'
 import { Link } from '../routes'
-import ActionBar from '../components/ActionBar/'
 import Frame from '../components/Frame'
 import Loader from '../components/Loader'
-import { gql, graphql } from 'react-apollo'
+import ArticleElement from '../components/Article/'
 import withData from '../lib/withData'
+
+import { css } from 'glamor'
+import { gql, graphql } from 'react-apollo'
 
 import { PUBLIC_BASE_URL, STATIC_BASE_URL } from '../constants'
 
@@ -18,25 +20,26 @@ const article = gql`
       comments {
         body
       }
-      id
-      lead
-      title
-      slug
       dossiers {
         id
         title
         slug
       }
+      id
+      lead
+      readingMinutes
+      slug
+      title
+      updatedAt
     }
   }
 `
 
-const Article = graphql(
+const ArticlePage = graphql(
   article
 )(({ data: { loading, error, Article }, url }) => {
-  // TODO: Create components for Article and Comment.
+  // TODO: Create component for Comment.
   // TODO: Use url.asPath for ActionBar url.
-  console.log(url)
   return (
     <Loader
       loading={loading}
@@ -44,38 +47,17 @@ const Article = graphql(
       render={() => {
         if (Article) {
           return (
-            <article>
-              <H1>
-                {Article.title}
-              </H1>
-              <P>
-                von {Article.author}
-              </P>
-              <ActionBar
-                url={PUBLIC_BASE_URL + `/artikel/${Article.slug}`}
-                emailSubject="{Article.title}"
-              />
-              <Lead>
-                {Article.lead}
-              </Lead>
-              <P>
-                {Article.body}
-              </P>
-              <P>
-                Dossier:{' '}
-                {Article.dossiers.map(dossier =>
-                  <Link route="dossier" params={{ slug: dossier.slug }}>
-                    {dossier.title}
-                  </Link>
-                )}
-              </P>
-              <Interaction.H2>Kommentare</Interaction.H2>
-              {Article.comments.map(comment =>
-                <Interaction.P>
-                  {comment.body}
-                </Interaction.P>
-              )}
-            </article>
+            <ArticleElement
+              title={Article.title}
+              lead={Article.lead}
+              body={Article.body}
+              author={Article.author}
+              updatedAt={Article.updatedAt}
+              readingMinutes={Article.readingMinutes}
+              slug={Article.slug}
+              dossiers={Article.dossiers}
+              comments={Article.comments}
+            />
           )
         } else {
           return <P>Artikel nicht gefunden</P>
@@ -87,8 +69,6 @@ const Article = graphql(
 
 export default withData(({ url }) =>
   <Frame url={url}>
-    <article>
-      <Article slug={url.query.slug} url={url} />
-    </article>
+    <ArticlePage slug={url.query.slug} url={url} />
   </Frame>
 )
