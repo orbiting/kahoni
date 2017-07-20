@@ -1,11 +1,14 @@
 import React from 'react'
-import Frame from '../components/Frame'
 import { Link } from '../routes'
+import ActionBar from '../components/ActionBar/'
+import Frame from '../components/Frame'
 import Loader from '../components/Loader'
 import { gql, graphql } from 'react-apollo'
 import withData from '../lib/withData'
 
-import { H1, H2, Interaction, Lead, P } from '@project-r/styleguide'
+import { PUBLIC_BASE_URL, STATIC_BASE_URL } from '../constants'
+
+import { H1, H2, Interaction, Label, Lead, P } from '@project-r/styleguide'
 
 const article = gql`
   query article($slug: String!) {
@@ -28,8 +31,12 @@ const article = gql`
   }
 `
 
-const Article = graphql(article)(({ data: { loading, error, Article } }) => {
+const Article = graphql(
+  article
+)(({ data: { loading, error, Article }, url }) => {
   // TODO: Create components for Article and Comment.
+  // TODO: Use url.asPath for ActionBar url.
+  console.log(url)
   return (
     <Loader
       loading={loading}
@@ -44,6 +51,10 @@ const Article = graphql(article)(({ data: { loading, error, Article } }) => {
               <P>
                 von {Article.author}
               </P>
+              <ActionBar
+                url={PUBLIC_BASE_URL + `/artikel/${Article.slug}`}
+                emailSubject="{Article.title}"
+              />
               <Lead>
                 {Article.lead}
               </Lead>
@@ -77,7 +88,7 @@ const Article = graphql(article)(({ data: { loading, error, Article } }) => {
 export default withData(({ url }) =>
   <Frame url={url}>
     <article>
-      <Article slug={url.query.slug} />
+      <Article slug={url.query.slug} url={url} />
     </article>
   </Frame>
 )

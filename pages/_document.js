@@ -9,18 +9,21 @@ export default class MyDocument extends Document {
     return {
       ...page,
       ...styles,
-      env: {}
+      env: require('../constants')
     }
   }
   constructor(props) {
     super(props)
     const { __NEXT_DATA__, env } = props
     if (env) {
-      __NEXT_DATA__.env = this.props.env
+      __NEXT_DATA__.env = env
     }
   }
   render() {
-    const { css, env: { PIWIK_URL_BASE, PIWIK_SITE_ID } } = this.props
+    const {
+      css,
+      env: { PIWIK_URL_BASE, PIWIK_SITE_ID, STATIC_BASE_URL }
+    } = this.props
     const piwik = !!PIWIK_URL_BASE && !!PIWIK_SITE_ID
     return (
       <html>
