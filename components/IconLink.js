@@ -7,6 +7,7 @@ import CommentIcon from './Icons/Comment'
 import FacebookIcon from './Icons/Facebook'
 import HeartIcon from './Icons/Heart'
 import ShareIcon from './Icons/Share'
+import TimeIcon from './Icons/Time'
 import TwitterIcon from './Icons/Twitter'
 import EmailIcon from './Icons/Email'
 import DownloadIcon from './Icons/Download'
@@ -31,6 +32,7 @@ const ICONS = {
   comment: CommentIcon,
   facebook: FacebookIcon,
   heart: HeartIcon,
+  time: TimeIcon,
   share: ShareIcon,
   twitter: TwitterIcon,
   email: EmailIcon,
