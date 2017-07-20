@@ -32,25 +32,27 @@ const ArticleElement = ({
   return (
     <article>
       <Interaction.P>
-        Dossier:{' '}
         {dossiers.map(dossier =>
           <Link route="dossier" params={{ slug: dossier.slug }}>
-            {dossier.title}
+            <a>
+              Dossier {dossier.title}
+            </a>
           </Link>
         )}
       </Interaction.P>
       <H1>
         {title}
       </H1>
+      <Lead>
+        {lead}
+      </Lead>
       <Author name={author} />
       <Time date={updatedAt} readingMinutes={readingMinutes} />
       <ActionBar
         url={PUBLIC_BASE_URL + `/artikel/${slug}`}
         emailSubject="{Article.title}"
       />
-      <Lead>
-        {lead}
-      </Lead>
+
       <P>
         {body}
       </P>

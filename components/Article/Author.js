@@ -2,19 +2,18 @@ import React from 'react'
 
 import { css } from 'glamor'
 
-import { H1, H2, Interaction, Label, Lead, P } from '@project-r/styleguide'
+import { H1, H2, A, Interaction, Label, Lead, P } from '@project-r/styleguide'
 
 const styles = {
-  icon: css({
-    display: 'inline-block',
-    verticalAlign: 'middle'
+  name: css({
+    marginRight: '10px'
   })
 }
 
 const Author = ({ name }) => {
   return (
     <Interaction.P>
-      {name}
+      <span {...styles.name}>Von {name}</span> <A href="#">Folgen</A>
     </Interaction.P>
   )
 }

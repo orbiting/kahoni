@@ -14,7 +14,8 @@ const styles = {
     position: 'relative',
     [mediaQueries.onlyS]: {
       borderTop: `1px solid ${colors.divider}`,
-      borderBottom: `1px solid ${colors.divider}`
+      borderBottom: `1px solid ${colors.divider}`,
+      marginTop: '10px'
     }
   })
 }

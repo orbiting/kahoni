@@ -24,6 +24,7 @@ const dossier = gql`
         author
         id
         title
+        readingMinutes
         slug
         updatedAt
       }
@@ -44,13 +45,14 @@ const Dossier = graphql(dossier)(({ data: { loading, error, Dossier } }) => {
               <Interaction.H1>
                 {Dossier.title}
               </Interaction.H1>
+
+              <P>
+                {Dossier.lead}
+              </P>
               <ActionBar
                 url={PUBLIC_BASE_URL + `/dossier/${Dossier.slug}`}
                 emailSubject="{Article.title}"
               />
-              <P>
-                {Dossier.lead}
-              </P>
               <div>
                 {Dossier.articles.map(article =>
                   <ArticleSnippet key={article.id} article={article} />
