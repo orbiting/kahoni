@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import { css, merge } from 'glamor'
 import Router from 'next/router'
+import { compose } from 'redux'
+
 import withT from '../../lib/withT'
+import withMe from '../../lib/withMe'
 
 import {
   Logo,
@@ -16,6 +19,10 @@ import Menu from './Menu'
 import Toggle from './Toggle'
 import LoadingBar from './LoadingBar'
 import { HEADER_HEIGHT, HEADER_HEIGHT_MOBILE } from './constants'
+
+import PersonIcon from '../Icons/Person'
+import SearchIcon from '../Icons/Search'
+import NotificationIcon from '../Icons/Notification'
 
 const styles = {
   bar: css({
@@ -65,8 +72,51 @@ const styles = {
   }),
   cover: css({
     marginBottom: 40
+  }),
+  icons: css({
+    position: 'absolute',
+    right: 0,
+    top: 0
+  }),
+  iconWrapper: css({
+    display: 'inline-block',
+    padding: '14px 0px 8px',
+    marginRight: 10,
+    [mediaQueries.mUp]: {
+      padding: '26px 0px'
+    }
+  }),
+  portrait: css({
+    height: HEADER_HEIGHT_MOBILE,
+    marginLeft: 5,
+    verticalAlign: 'top',
+    [mediaQueries.mUp]: {
+      height: HEADER_HEIGHT
+    }
+  }),
+  initials: css({
+    display: 'inline-block',
+    marginLeft: 5,
+    verticalAlign: 'top',
+    textAlign: 'center',
+    backgroundColor: '#ccc',
+    textTransform: 'uppercase',
+    width: HEADER_HEIGHT_MOBILE,
+    height: HEADER_HEIGHT_MOBILE,
+    paddingTop: 12,
+    fontSize: 20,
+    [mediaQueries.mUp]: {
+      width: HEADER_HEIGHT,
+      height: HEADER_HEIGHT,
+      paddingTop: 26
+    }
   })
 }
+
+const IconWrapper = ({ children }) =>
+  <span {...styles.iconWrapper}>
+    {children}
+  </span>
 
 class Header extends Component {
   constructor(props) {
@@ -113,7 +163,7 @@ class Header extends Component {
     window.removeEventListener('resize', this.measure)
   }
   render() {
-    const { cover, sticky, forceStatus, url, t } = this.props
+    const { cover, sticky, forceStatus, url, me, t } = this.props
     const { mobile, expanded, hasStatusSpace } = this.state
 
     const opaque = this.state.opaque || expanded
@@ -178,12 +228,32 @@ class Header extends Component {
                   url={url}
                 />}
             </div>
-            {mobile &&
-              <Toggle
-                expanded={expanded}
-                id="primary-menu"
-                onClick={() => this.setState({ expanded: !expanded })}
-              />}
+            <div {...styles.icons}>
+              <IconWrapper>
+                <SearchIcon />
+              </IconWrapper>
+              {me &&
+                <IconWrapper>
+                  <NotificationIcon />
+                </IconWrapper>}
+              {mobile &&
+                <IconWrapper>
+                  <Toggle
+                    expanded={expanded}
+                    id="primary-menu"
+                    onClick={() => this.setState({ expanded: !expanded })}
+                  />
+                </IconWrapper>}
+              {me
+                ? me.portrait
+                  ? <img src={me.portrait.url} {...styles.portrait} />
+                  : <span {...styles.initials}>
+                      {(me.name || me.email).substr(0, 1)}
+                    </span>
+                : <IconWrapper>
+                    <PersonIcon />
+                  </IconWrapper>}
+            </div>
           </Container>
         </div>
         <LoadingBar />
@@ -196,4 +266,4 @@ class Header extends Component {
   }
 }
 
-export default withT(Header)
+export default compose(withT, withMe)(Header)
