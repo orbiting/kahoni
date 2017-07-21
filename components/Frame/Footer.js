@@ -105,44 +105,6 @@ class Footer extends Component {
     return (
       <div {...styles.bg}>
         <Container style={{ overflow: 'hidden' }}>
-          <div {...styles.grid}>
-            <div {...styles.column}>
-              <div {...styles.title}>
-                {t('footer/contact/title')}
-              </div>
-              {intersperse(t('footer/contact/name').split('\n'), (item, i) =>
-                <br key={i} />
-              )}
-              <a
-                href="https://www.google.ch/maps/place/Sihlhallenstrasse+1,+8004+Zürich"
-                target="_blank"
-              >
-                {intersperse(
-                  t('footer/contact/address').split('\n'),
-                  (item, i) => <br key={i} />
-                )}
-              </a>
-              <br />
-              <a href={`mailto:${t('footer/contact/mail')}`}>
-                {t('footer/contact/mail')}
-              </a>
-            </div>
-            <div {...styles.column}>
-              <div {...styles.title}>
-                {t('footer/about/title')}
-              </div>
-              <Link href="/article">
-                <a>
-                  {t('footer/about/article')}
-                </a>
-              </Link>
-              <br />
-              <a href="https://project-r.construction/" target="_blank">
-                {t('footer/about/projecR')}
-              </a>
-            </div>
-          </div>
-          <hr {...styles.hr} />
           <Logo fill={colors.secondary} width={140} />
           <div {...styles.icons}>
             <IconLink

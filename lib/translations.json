@@ -1,5 +1,5 @@
 {
-  "updated": "2017-07-20T12:47:03.531Z",
+  "updated": "2017-07-21T11:09:46.640Z",
   "title": "live",
   "data": [
     {
@@ -21,34 +21,6 @@
     {
       "key": "menu/join",
       "value": "Mitmachen"
-    },
-    {
-      "key": "footer/contact/title",
-      "value": "Kontakt"
-    },
-    {
-      "key": "footer/contact/name",
-      "value": "Republik \nProject R Genossenschaft "
-    },
-    {
-      "key": "footer/contact/address",
-      "value": "Sihlhallenstrasse 1 \n8004 Zürich \nSchweiz"
-    },
-    {
-      "key": "footer/contact/mail",
-      "value": "kontakt@republik.ch"
-    },
-    {
-      "key": "footer/about/title",
-      "value": "Über uns"
-    },
-    {
-      "key": "footer/about/article",
-      "value": "Artikel"
-    },
-    {
-      "key": "footer/about/projecR",
-      "value": "Project R"
     },
     {
       "key": "signIn/button",
