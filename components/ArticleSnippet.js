@@ -12,6 +12,7 @@ import {
   H1,
   H2,
   Interaction,
+  linkRule,
   Label,
   Lead,
   P
@@ -21,6 +22,10 @@ const styles = {
   article: css({
     borderBottom: `1px solid ${colors.divider}`,
     padding: '20px 0'
+  }),
+  titleLink: css({
+    color: 'inherit',
+    textDecoration: 'none'
   })
 }
 
@@ -32,12 +37,14 @@ const ArticleSnippet = ({ article }) => {
     <article {...styles.article}>
       <H2 style={{ marginBottom: 0 }}>
         <Link route="article" params={{ slug: article.slug }}>
-          {article.title}
+          <a {...styles.titleLink}>
+            {article.title}
+          </a>
         </Link>
       </H2>
       <Time date={article.updatedAt} readingMinutes={article.readingMinutes} />
       <Link route="article" params={{ slug: article.slug }}>
-        Lesen
+        <a {...linkRule}>Lesen</a>
       </Link>
     </article>
   )
