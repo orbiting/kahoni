@@ -5,8 +5,9 @@ import SignOut from '../../Auth/SignOut'
 
 import { Interaction } from '@project-r/styleguide'
 
-export default ({ me }) =>
+export default ({ me, children }) =>
   <div>
+    {children}
     {!!me &&
       <Interaction.P>
         {me.name || me.email}
