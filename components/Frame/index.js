@@ -8,7 +8,7 @@ import Footer from './Footer'
 import Meta from './Meta'
 import Content from './Content'
 
-import { HEADER_HEIGHT } from './constants'
+import { HEADER_HEIGHT, HEADER_HEIGHT_MOBILE } from './constants'
 
 import {
   Container,
@@ -31,7 +31,10 @@ const styles = {
     flexDirection: 'column'
   }),
   coverless: css({
-    paddingTop: HEADER_HEIGHT + 40
+    paddingTop: HEADER_HEIGHT + 40,
+    [mediaQueries.onlyS]: {
+      paddingTop: HEADER_HEIGHT_MOBILE + 40
+    }
   }),
   hideOnMobile: css({
     [mediaQueries.onlyS]: {

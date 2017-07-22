@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import { css, merge } from 'glamor'
 import Router from 'next/router'
+import { compose } from 'redux'
+
 import withT from '../../lib/withT'
+import withMe from '../../lib/withMe'
 
 import {
   Logo,
@@ -14,13 +17,14 @@ import {
 
 import Menu from './Menu'
 import Toggle from './Toggle'
+import Popover from './Popover'
+import MePopover from './Popover/Me'
 import LoadingBar from './LoadingBar'
-import {
-  SIDEBAR_WIDTH,
-  HEADER_HEIGHT,
-  HEADER_HEIGHT_MOBILE,
-  MENUBAR_HEIGHT
-} from './constants'
+import { HEADER_HEIGHT, HEADER_HEIGHT_MOBILE } from './constants'
+
+import PersonIcon from '../Icons/Person'
+import SearchIcon from '../Icons/Search'
+import NotificationIcon from '../Icons/Notification'
 
 const styles = {
   bar: css({
@@ -40,24 +44,6 @@ const styles = {
       height: HEADER_HEIGHT
     },
     borderBottom: `1px solid ${colors.divider}`
-  }),
-  menuBar: css({
-    position: 'fixed',
-    zIndex: 10,
-    top: HEADER_HEIGHT_MOBILE,
-    left: 0,
-    right: 0,
-    height: MENUBAR_HEIGHT,
-    backgroundColor: '#fff',
-    borderBottom: `1px solid ${colors.divider}`,
-    [mediaQueries.mUp]: {
-      display: 'none'
-    }
-  }),
-  menuBarText: css({
-    fontSize: 32,
-    opacity: 0.3,
-    padding: '7px 15px'
   }),
   logo: css({
     paddingTop: 15,
@@ -89,17 +75,50 @@ const styles = {
   cover: css({
     marginBottom: 40
   }),
-  side: css({
+  icons: css({
     position: 'absolute',
     right: 0,
-    top: 0,
-    width: '50%',
+    top: 0
+  }),
+  iconWrapper: css({
+    display: 'inline-block',
+    padding: '14px 0px 8px',
+    marginRight: 10,
     [mediaQueries.mUp]: {
-      right: CONTAINER_PADDING,
-      width: SIDEBAR_WIDTH
+      padding: '26px 0px'
+    }
+  }),
+  portrait: css({
+    height: HEADER_HEIGHT_MOBILE,
+    marginLeft: 5,
+    verticalAlign: 'top',
+    [mediaQueries.mUp]: {
+      height: HEADER_HEIGHT
+    }
+  }),
+  initials: css({
+    display: 'inline-block',
+    marginLeft: 5,
+    verticalAlign: 'top',
+    textAlign: 'center',
+    backgroundColor: '#ccc',
+    textTransform: 'uppercase',
+    width: HEADER_HEIGHT_MOBILE,
+    height: HEADER_HEIGHT_MOBILE,
+    paddingTop: 12,
+    fontSize: 20,
+    [mediaQueries.mUp]: {
+      width: HEADER_HEIGHT,
+      height: HEADER_HEIGHT,
+      paddingTop: 26
     }
   })
 }
+
+const IconWrapper = ({ children }) =>
+  <span {...styles.iconWrapper}>
+    {children}
+  </span>
 
 class Header extends Component {
   constructor(props) {
@@ -108,7 +127,8 @@ class Header extends Component {
     this.state = {
       opaque: !this.props.cover,
       mobile: false,
-      expanded: false
+      expanded: false,
+      popover: null
     }
 
     this.onScroll = () => {
@@ -146,8 +166,8 @@ class Header extends Component {
     window.removeEventListener('resize', this.measure)
   }
   render() {
-    const { cover, sticky, sidebar, forceStatus, url, t } = this.props
-    const { mobile, expanded, hasStatusSpace } = this.state
+    const { cover, sticky, forceStatus, url, me, t } = this.props
+    const { mobile, expanded, popover, hasStatusSpace } = this.state
 
     const opaque = this.state.opaque || expanded
 
@@ -211,26 +231,55 @@ class Header extends Component {
                   url={url}
                 />}
             </div>
+            <div {...styles.icons}>
+              <span style={{ opacity: popover ? 0.5 : 1 }}>
+                <IconWrapper>
+                  <SearchIcon />
+                </IconWrapper>
+                {me &&
+                  <IconWrapper>
+                    <NotificationIcon />
+                  </IconWrapper>}
+                {mobile &&
+                  <IconWrapper>
+                    <Toggle
+                      expanded={expanded}
+                      id="primary-menu"
+                      onClick={() => this.setState({ expanded: !expanded })}
+                    />
+                  </IconWrapper>}
+              </span>
+              <a
+                href="/me"
+                onClick={e => {
+                  e.preventDefault()
+                  this.setState(() => ({
+                    popover: popover === 'me' ? null : 'me'
+                  }))
+                }}
+              >
+                {me
+                  ? me.portrait
+                    ? <img src={me.portrait.url} {...styles.portrait} />
+                    : <span {...styles.initials}>
+                        {(me.name || me.email).substr(0, 1)}
+                      </span>
+                  : <IconWrapper>
+                      <PersonIcon />
+                    </IconWrapper>}
+              </a>
+            </div>
+            <Popover expanded={!!popover}>
+              <span style={{ float: 'right', marginTop: 5 }}>
+                <Toggle
+                  expanded
+                  onClick={() => this.setState({ popover: null })}
+                />
+              </span>
+              <MePopover me={me} />
+            </Popover>
           </Container>
         </div>
-        {opaque &&
-          <div
-            {...styles.menuBar}
-            onClick={() => this.setState({ expanded: !expanded })}
-          >
-            <div {...styles.menuBarText}>
-              {t.first(
-                [`menu${url.pathname}`, `footer${url.pathname}`],
-                {},
-                url.pathname
-              )}
-            </div>
-            <Toggle
-              expanded={expanded}
-              id="primary-menu"
-              onClick={() => this.setState({ expanded: !expanded })}
-            />
-          </div>}
         <LoadingBar />
         {!!cover &&
           <div {...styles.cover}>
@@ -241,4 +290,4 @@ class Header extends Component {
   }
 }
 
-export default withT(Header)
+export default compose(withT, withMe)(Header)

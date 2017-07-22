@@ -1,5 +1,5 @@
 import React from 'react'
-import {css} from 'glamor'
+import { css } from 'glamor'
 
 const BLACK = '#282828'
 
@@ -7,9 +7,8 @@ const toggleStyle = css({
   width: 24,
   height: 24,
   padding: 3,
-  position: 'absolute',
-  top: 12,
-  right: 15,
+  top: -3,
+  position: 'relative',
   cursor: 'pointer',
   zIndex: 1,
   '&, :hover, :focus': {
@@ -26,7 +25,8 @@ const toggleStyle = css({
     opacity: 1,
     left: 0,
     width: 24,
-    transition: 'transform .25s ease-in-out, opacity .25s ease-in-out, top .25s ease-in-out, left .25s ease-in-out, width .25s ease-in-out',
+    transition:
+      'transform .25s ease-in-out, opacity .25s ease-in-out, top .25s ease-in-out, left .25s ease-in-out, width .25s ease-in-out',
     transform: 'rotate(0deg)',
     transformOrigin: 'left center',
     ':hover': {
@@ -58,14 +58,15 @@ const toggleStyle = css({
   }
 })
 
-export default ({expanded, onClick, id}) => (
-  <button {...toggleStyle}
+export default ({ expanded, onClick, id }) =>
+  <button
+    {...toggleStyle}
     onClick={onClick}
     aria-controls={id}
     title={''}
-    aria-expanded={expanded}>
+    aria-expanded={expanded}
+  >
     <span />
     <span />
     <span />
   </button>
-)
