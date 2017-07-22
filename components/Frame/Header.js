@@ -17,6 +17,8 @@ import {
 
 import Menu from './Menu'
 import Toggle from './Toggle'
+import Popover from './Popover'
+import MePopover from './Popover/Me'
 import LoadingBar from './LoadingBar'
 import { HEADER_HEIGHT, HEADER_HEIGHT_MOBILE } from './constants'
 
@@ -125,7 +127,8 @@ class Header extends Component {
     this.state = {
       opaque: !this.props.cover,
       mobile: false,
-      expanded: false
+      expanded: false,
+      popover: null
     }
 
     this.onScroll = () => {
@@ -164,7 +167,7 @@ class Header extends Component {
   }
   render() {
     const { cover, sticky, forceStatus, url, me, t } = this.props
-    const { mobile, expanded, hasStatusSpace } = this.state
+    const { mobile, expanded, popover, hasStatusSpace } = this.state
 
     const opaque = this.state.opaque || expanded
 
@@ -229,31 +232,52 @@ class Header extends Component {
                 />}
             </div>
             <div {...styles.icons}>
-              <IconWrapper>
-                <SearchIcon />
-              </IconWrapper>
-              {me &&
+              <span style={{ opacity: popover ? 0.5 : 1 }}>
                 <IconWrapper>
-                  <NotificationIcon />
-                </IconWrapper>}
-              {mobile &&
-                <IconWrapper>
-                  <Toggle
-                    expanded={expanded}
-                    id="primary-menu"
-                    onClick={() => this.setState({ expanded: !expanded })}
-                  />
-                </IconWrapper>}
-              {me
-                ? me.portrait
-                  ? <img src={me.portrait.url} {...styles.portrait} />
-                  : <span {...styles.initials}>
-                      {(me.name || me.email).substr(0, 1)}
-                    </span>
-                : <IconWrapper>
-                    <PersonIcon />
+                  <SearchIcon />
+                </IconWrapper>
+                {me &&
+                  <IconWrapper>
+                    <NotificationIcon />
                   </IconWrapper>}
+                {mobile &&
+                  <IconWrapper>
+                    <Toggle
+                      expanded={expanded}
+                      id="primary-menu"
+                      onClick={() => this.setState({ expanded: !expanded })}
+                    />
+                  </IconWrapper>}
+              </span>
+              <a
+                href="/me"
+                onClick={e => {
+                  e.preventDefault()
+                  this.setState(() => ({
+                    popover: popover === 'me' ? null : 'me'
+                  }))
+                }}
+              >
+                {me
+                  ? me.portrait
+                    ? <img src={me.portrait.url} {...styles.portrait} />
+                    : <span {...styles.initials}>
+                        {(me.name || me.email).substr(0, 1)}
+                      </span>
+                  : <IconWrapper>
+                      <PersonIcon />
+                    </IconWrapper>}
+              </a>
             </div>
+            <Popover expanded={!!popover}>
+              <span style={{ float: 'right', marginTop: 5 }}>
+                <Toggle
+                  expanded
+                  onClick={() => this.setState({ popover: null })}
+                />
+              </span>
+              <MePopover me={me} />
+            </Popover>
           </Container>
         </div>
         <LoadingBar />
