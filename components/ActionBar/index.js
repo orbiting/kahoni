@@ -35,16 +35,17 @@ class ActionBar extends Component {
   }
 
   render() {
-    const { fill, url } = this.props
+    const { fill, url, emailSubject } = this.props
     return (
       <div {...styles.actionbar}>
         <IconLink fill={fill} icon={'bookmark'} />
         <span onClick={this.toggleSharePanel}>
           <IconLink fill={fill} icon={'share'} url={url} />
-          {this.state.sharePanelActive && <SharePanel url={url} />}
         </span>
         <IconLink fill={fill} icon={'heart'} />
         <IconLink fill={fill} icon={'comment'} />
+        {this.state.sharePanelActive &&
+          <SharePanel url={url} emailSubject={emailSubject} />}
       </div>
     )
   }

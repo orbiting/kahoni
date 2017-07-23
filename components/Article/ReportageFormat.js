@@ -59,7 +59,11 @@ const ReportageFormat = ({ article, me, share }) => {
       </div>
       {me &&
         <ActionBar
-          url={PUBLIC_BASE_URL + `/artikel/${article.slug}`}
+          url={
+            PUBLIC_BASE_URL +
+            `/artikel/${article.slug}?share=${me.name ||
+              me.email.split('@')[0]}`
+          }
           emailSubject={article.title}
         />}
       {!!share && <SharedBy share={share} me={me} />}

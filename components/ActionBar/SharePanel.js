@@ -5,7 +5,7 @@ import Share from '../Share'
 
 import { css, merge, style } from 'glamor'
 
-import { mediaQueries, Label } from '@project-r/styleguide'
+import { mediaQueries, Label, Interaction } from '@project-r/styleguide'
 
 import { PUBLIC_BASE_URL } from '../../constants'
 
@@ -24,13 +24,22 @@ const styles = {
   label: css({ display: 'block', marginBottom: 5 })
 }
 
-const SharePanel = ({ url }) => {
+const SharePanel = ({ url, emailSubject }) => {
   return (
     <div {...styles.panel}>
-      <Label {...styles.label}>
-        Teilen Sie diesen Artikel mit Ihren Freunden:
-      </Label>
-      <Share url={url} emailSubject={'TODO: Add article name'} />
+      <Interaction.P>
+        Teilen Sie diesen Artikel mit Ihren Freunden
+      </Interaction.P>
+      <br />
+      <Label>Vorschau</Label>
+      <br />
+      <img
+        src="/static/social/share-example.png"
+        style={{ width: '100%', maxWidth: 400 }}
+      />
+      <br />
+      <br />
+      <Share url={url} emailSubject={emailSubject} />
     </div>
   )
 }
