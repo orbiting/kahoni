@@ -3,6 +3,7 @@ import React from 'react'
 import ActionBar from '../ActionBar/'
 import Author from './Author'
 import Time from './Time'
+import SharedBy from './SharedBy'
 
 import { css } from 'glamor'
 
@@ -41,7 +42,7 @@ const styles = {
   })
 }
 
-const ReportageFormat = ({ article }) => {
+const ReportageFormat = ({ article, me, share }) => {
   return (
     <article>
       <div {...styles.cover}>
@@ -56,10 +57,12 @@ const ReportageFormat = ({ article }) => {
           />
         </div>
       </div>
-      <ActionBar
-        url={PUBLIC_BASE_URL + `/artikel/${article.slug}`}
-        emailSubject="{Article.title}"
-      />
+      {me &&
+        <ActionBar
+          url={PUBLIC_BASE_URL + `/artikel/${article.slug}`}
+          emailSubject={article.title}
+        />}
+      {!!share && <SharedBy share={share} me={me} />}
       <P>
         {article.body}
       </P>

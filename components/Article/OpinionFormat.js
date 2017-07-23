@@ -3,6 +3,7 @@ import React from 'react'
 import ActionBar from '../ActionBar/'
 import Author from './Author'
 import Time from './Time'
+import SharedBy from './SharedBy'
 
 import { css } from 'glamor'
 
@@ -31,7 +32,7 @@ const styles = {
   })
 }
 
-const OpinionFormat = ({ article }) => {
+const OpinionFormat = ({ article, me, share }) => {
   return (
     <article>
       <div {...styles.cover}>
@@ -46,10 +47,12 @@ const OpinionFormat = ({ article }) => {
           />
         </div>
       </div>
-      <ActionBar
-        url={PUBLIC_BASE_URL + `/artikel/${article.slug}`}
-        emailSubject="{Article.title}"
-      />
+      {me &&
+        <ActionBar
+          url={PUBLIC_BASE_URL + `/artikel/${article.slug}`}
+          emailSubject={article.title}
+        />}
+      {!!share && <SharedBy share={share} me={me} />}
       <P>
         {article.body}
       </P>

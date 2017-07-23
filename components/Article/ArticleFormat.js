@@ -3,6 +3,7 @@ import React from 'react'
 import ActionBar from '../ActionBar/'
 import Author from './Author'
 import Time from './Time'
+import SharedBy from './SharedBy'
 
 import { Link } from '../../routes'
 import { PUBLIC_BASE_URL } from '../../constants'
@@ -17,7 +18,7 @@ import {
   linkRule
 } from '@project-r/styleguide'
 
-const ArticleFormat = ({ article }) => {
+const ArticleFormat = ({ article, share, me }) => {
   return (
     <article>
       <Interaction.P>
@@ -41,10 +42,12 @@ const ArticleFormat = ({ article }) => {
       </Lead>
       <Author name={article.author} />
       <Time date={article.updatedAt} readingMinutes={article.readingMinutes} />
-      <ActionBar
-        url={PUBLIC_BASE_URL + `/artikel/${article.slug}`}
-        emailSubject="{Article.title}"
-      />
+      {me &&
+        <ActionBar
+          url={PUBLIC_BASE_URL + `/artikel/${article.slug}`}
+          emailSubject={article.title}
+        />}
+      {!!share && <SharedBy share={share} me={me} />}
       <P>
         {article.body}
       </P>
