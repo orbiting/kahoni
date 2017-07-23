@@ -1,12 +1,13 @@
 import withData from '../lib/withData'
 import Frame from '../components/Frame'
-import Me from '../components/Auth/Me'
+import withMe from '../lib/withMe'
+import { compose } from 'redux'
 
-import { H1 } from '@project-r/styleguide'
+import Feed from '../components/Feed'
+import Marketing from '../components/Marketing'
 
-export default withData(({ url }) =>
+export default compose(withData, withMe)(({ url, me }) =>
   <Frame url={url}>
-    <H1>Es ist Zeit.</H1>
-    <Me />
+    {me && me.membership ? <Feed /> : <Marketing />}
   </Frame>
 )
