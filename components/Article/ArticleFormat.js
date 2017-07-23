@@ -7,7 +7,15 @@ import Time from './Time'
 import { Link } from '../../routes'
 import { PUBLIC_BASE_URL } from '../../constants'
 
-import { H1, H2, Interaction, Label, Lead, P } from '@project-r/styleguide'
+import {
+  H1,
+  H2,
+  Interaction,
+  Label,
+  Lead,
+  P,
+  linkRule
+} from '@project-r/styleguide'
 
 const ArticleFormat = ({ article }) => {
   return (
@@ -19,7 +27,7 @@ const ArticleFormat = ({ article }) => {
             params={{ slug: dossier.slug }}
             key={dossier.id}
           >
-            <a>
+            <a {...linkRule}>
               Dossier {dossier.title}
             </a>
           </Link>
