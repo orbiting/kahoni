@@ -3,10 +3,9 @@ const routes = nextRoutes()
 
 routes
   .add('index', '/')
-  .add('feed', '/feed')
   .add('dossier', '/dossier/:slug')
   .add('article', '/artikel/:slug')
-  .add('join', '/beitreten')
+  .add('me', '/me')
   .add('forum', '/forum')
 
 module.exports = routes
