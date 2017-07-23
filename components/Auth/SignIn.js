@@ -24,13 +24,13 @@ const styles = {
   input: css({
     marginRight: 10,
     marginBottom: 0,
-    width: '58%',
+    width: '54%',
     flexGrow: 1
   }),
   button: css({
-    width: '38%',
-    minWidth: 140,
-    maxWidth: 160,
+    width: '46%',
+    minWidth: 160,
+    maxWidth: 180,
     textAlign: 'center'
   })
 }
