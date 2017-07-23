@@ -123,7 +123,7 @@ class List extends Component {
     return (
       <div>
         <Interaction.H2>
-          {me && me.membership ? 'Ihr Plan' : 'Jetzt Mitglied werden'}
+          {me && me.membership ? 'Ihr Teilnahme' : 'Jetzt Mitglied werden'}
         </Interaction.H2>
         <br />
         <div {...styles.options}>
