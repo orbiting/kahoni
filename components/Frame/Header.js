@@ -15,7 +15,6 @@ import {
   mediaQueries
 } from '@project-r/styleguide'
 
-import Menu from './Menu'
 import Toggle from './Toggle'
 import Popover from './Popover'
 import MePopover from './Popover/Me'
@@ -53,24 +52,6 @@ const styles = {
     display: 'inline-block',
     verticalAlign: 'middle',
     lineHeight: 0
-  }),
-  menu: css({
-    [mediaQueries.mUp]: {
-      display: 'inline-block',
-      marginLeft: 15,
-      paddingTop: 25,
-      verticalAlign: 'middle'
-    }
-  }),
-  link: css({
-    textDecoration: 'none',
-    color: colors.text,
-    ':visited': {
-      color: colors.text
-    },
-    ':hover': {
-      color: '#ccc'
-    }
   }),
   cover: css({
     marginBottom: 40
@@ -176,13 +157,6 @@ class Header extends Component {
 
     const logoHeight = mobile ? 18 : 30
 
-    const menuItems = [
-      {
-        label: t('menu/forum'),
-        href: '/forum'
-      }
-    ]
-
     return (
       <div>
         <div {...barStyle}>
@@ -215,15 +189,6 @@ class Header extends Component {
               >
                 <Logo height={logoHeight} />
               </a>}
-            <div {...styles.menu}>
-              {(mobile || opaque) &&
-                <Menu
-                  expanded={expanded}
-                  id="primary-menu"
-                  items={menuItems}
-                  url={url}
-                />}
-            </div>
             <div {...styles.icons}>
               <span style={{ opacity: popover ? 0.5 : 1 }}>
                 <IconWrapper>
@@ -232,14 +197,6 @@ class Header extends Component {
                 {me &&
                   <IconWrapper>
                     <NotificationIcon />
-                  </IconWrapper>}
-                {mobile &&
-                  <IconWrapper>
-                    <Toggle
-                      expanded={expanded}
-                      id="primary-menu"
-                      onClick={() => this.setState({ expanded: !expanded })}
-                    />
                   </IconWrapper>}
               </span>
               <a

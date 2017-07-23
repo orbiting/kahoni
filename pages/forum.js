@@ -3,6 +3,9 @@ import Frame from '../components/Frame'
 import Loader from '../components/Loader'
 import { gql, graphql } from 'react-apollo'
 import withData from '../lib/withData'
+import { Link } from '../routes'
+
+import { Interaction, linkRule } from '@project-r/styleguide'
 
 const allQuestions = gql`
   query allQuestions {
@@ -25,9 +28,13 @@ const QuestionList = graphql(
           return (
             <div>
               {allQuestions.map(question =>
-                <div key={question.id}>
-                  {question.body}
-                </div>
+                <Interaction.P key={question.id}>
+                  <Link route="question" params={{ id: question.id }}>
+                    <a {...linkRule}>
+                      {question.body}
+                    </a>
+                  </Link>
+                </Interaction.P>
               )}
             </div>
           )
