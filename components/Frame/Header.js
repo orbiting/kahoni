@@ -102,6 +102,7 @@ const styles = {
     verticalAlign: 'top',
     textAlign: 'center',
     backgroundColor: '#ccc',
+    color: '#000',
     textTransform: 'uppercase',
     width: HEADER_HEIGHT_MOBILE,
     height: HEADER_HEIGHT_MOBILE,
