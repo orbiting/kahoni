@@ -17,7 +17,8 @@ import {
   Label,
   Lead,
   P,
-  mediaQueries
+  mediaQueries,
+  linkRule
 } from '@project-r/styleguide'
 
 // TODO: Implement light/dark theme.
@@ -77,7 +78,7 @@ const ReportageFormat = ({ article, me, share }) => {
             params={{ slug: dossier.slug }}
             key={dossier.id}
           >
-            <a>
+            <a {...linkRule}>
               Dossier {dossier.title}
             </a>
           </Link>

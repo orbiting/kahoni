@@ -7,6 +7,8 @@ import Loader from '../components/Loader'
 import NewsletterBox from '../components/NewsletterBox'
 import { Link } from '../routes'
 import withData from '../lib/withData'
+import withMe from '../lib/withMe'
+import { compose } from 'redux'
 
 import { gql, graphql } from 'react-apollo'
 
@@ -33,7 +35,10 @@ const dossier = gql`
   }
 `
 
-const Dossier = graphql(dossier)(({ data: { loading, error, Dossier } }) => {
+const Dossier = compose(
+  withMe,
+  graphql(dossier)
+)(({ data: { loading, error, Dossier }, me }) => {
   return (
     <Loader
       loading={loading}
@@ -50,16 +55,26 @@ const Dossier = graphql(dossier)(({ data: { loading, error, Dossier } }) => {
               <P>
                 {Dossier.lead}
               </P>
-              <ActionBar
-                url={PUBLIC_BASE_URL + `/dossier/${Dossier.slug}`}
-                emailSubject="{Article.title}"
-              />
-              <div>
-                {Dossier.articles.map(article =>
-                  <ArticleSnippet key={article.id} article={article} />
-                )}
-              </div>
-              <NewsletterBox />
+              {me &&
+                <ActionBar
+                  url={PUBLIC_BASE_URL + `/dossier/${Dossier.slug}`}
+                  emailSubject={Dossier.title}
+                />}
+              {me && me.membership
+                ? <div>
+                    {Dossier.articles.map(article =>
+                      <ArticleSnippet key={article.id} article={article} />
+                    )}
+                  </div>
+                : <div>
+                    <Label>Im Dossier befinden sich:</Label>
+                    <Interaction.P>
+                      {Dossier.articles.length} Artikel
+                    </Interaction.P>
+                    <br />
+                    <br />
+                    <NewsletterBox />
+                  </div>}
             </div>
           )
         }
