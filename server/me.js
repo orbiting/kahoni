@@ -26,10 +26,19 @@ module.exports = (req, res) => {
     s => s.name.value === 'member'
   ).selectionSet = getFirstSelectionSet(meQuery)
 
+  const id = cookies[COOKIE_NAME]
+  if (!id) {
+    return res.json({
+      data: {
+        me: null
+      }
+    })
+  }
+
   return cmsFetchAsAdmin({
     query: print(cmsQuery),
     variables: {
-      id: cookies[COOKIE_NAME]
+      id
     },
     operationName: null
   })

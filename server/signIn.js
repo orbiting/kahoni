@@ -83,6 +83,7 @@ module.exports = async (req, res) => {
   return res.json({
     data: {
       signIn: {
+        __typename: 'SignInResponse',
         phrase
       }
     }
