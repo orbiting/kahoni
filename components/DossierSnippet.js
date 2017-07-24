@@ -11,7 +11,8 @@ import {
   mediaQueries,
   H1,
   H2,
-  Interaction
+  Interaction,
+  linkRule
 } from '@project-r/styleguide'
 
 const styles = {
@@ -54,13 +55,13 @@ const DossierSnippet = ({ dossier }) => {
                 </a>
               </Link>
             </H2>
-            <Time date={article.updatedAt} />
+            <Time date={article.createdAt} />
           </div>
         )}
       </div>
       <Interaction.P style={{ marginBottom: 0, textAlign: 'center' }}>
         <Link route="dossier" params={{ slug: dossier.slug }}>
-          <a>Alle anzeigen</a>
+          <a {...linkRule}>Alle anzeigen</a>
         </Link>
       </Interaction.P>
     </article>

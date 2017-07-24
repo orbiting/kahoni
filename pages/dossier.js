@@ -29,7 +29,7 @@ const dossier = gql`
         title
         readingMinutes
         slug
-        updatedAt
+        createdAt
       }
     }
   }
