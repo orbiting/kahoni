@@ -22,8 +22,6 @@ import {
   linkRule
 } from '@project-r/styleguide'
 
-// TODO: Implement light/dark theme.
-
 const styles = {
   cover: css({
     backgroundColor: '#ddd',
@@ -35,6 +33,14 @@ const styles = {
     [mediaQueries.onlyS]: {
       margin: '0 -20px'
     }
+  }),
+  opaqueHelper: css({
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    top: 0,
+    zIndex: 0
   }),
   meta: css({
     bottom: '20px',
@@ -54,18 +60,39 @@ const ReportageFormat = ({ article, me, share }) => {
   const coverPhotoStyle = coverPhoto
     ? { backgroundImage: 'url(' + coverPhoto.file.url + ')' }
     : ''
+  let opaqueColor = ''
+  let textColor = '#000'
+  if (article.theme == 'DARK') {
+    opaqueColor = 'rgba(0,0,0,.25)'
+    textColor = '#fff'
+  } else if (article.theme == 'LIGHT') {
+    opaqueColor = 'rgba(255,255,255,.75)'
+  }
   let photos = article.photos.length ? [...article.photos.slice(1)] : []
+
   return (
     <article>
       <div {...styles.cover} style={coverPhotoStyle}>
-        <H1 style={{ textAlign: 'center' }}>
+        {opaqueColor &&
+          <div
+            {...styles.opaqueHelper}
+            style={{ backgroundColor: opaqueColor }}
+          />}
+        <H1
+          style={{
+            position: 'relative',
+            zIndex: 3,
+            color: textColor
+          }}
+        >
           {article.title}
         </H1>
         <div {...styles.meta}>
-          <Author name={article.author} showBadge={true} />
+          <Author name={article.author} showBadge={true} color={textColor} />
           <Time
             date={article.updatedAt}
             readingMinutes={article.readingMinutes}
+            color={textColor}
           />
         </div>
       </div>
