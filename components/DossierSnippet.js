@@ -5,18 +5,13 @@ import Time from './Article/Time'
 import { Link } from '../routes'
 
 import { css } from 'glamor'
-import { swissTime } from '../lib/utils/formats'
 
 import {
   colors,
   mediaQueries,
   H1,
   H2,
-  Interaction,
-  linkRule,
-  Label,
-  Lead,
-  P
+  Interaction
 } from '@project-r/styleguide'
 
 const styles = {
@@ -37,8 +32,6 @@ const styles = {
     textDecoration: 'none'
   })
 }
-
-const timeFormat = swissTime.format('%d. %B %Y')
 
 const DossierSnippet = ({ dossier }) => {
   const articles = dossier.articles.slice(0, 3)
@@ -67,7 +60,7 @@ const DossierSnippet = ({ dossier }) => {
       </div>
       <Interaction.P style={{ marginBottom: 0, textAlign: 'center' }}>
         <Link route="dossier" params={{ slug: dossier.slug }}>
-          <a {...styles.titleLink}>Alle anzeigen</a>
+          <a>Alle anzeigen</a>
         </Link>
       </Interaction.P>
     </article>
