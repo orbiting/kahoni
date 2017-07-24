@@ -19,6 +19,9 @@ const styles = {
     '& ul, & ol': {
       overflow: 'hidden'
     },
+    '& img': {
+      maxWidth: '100%'
+    },
     '& .container169': {
       position: 'relative',
       height: 0,

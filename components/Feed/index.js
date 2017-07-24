@@ -48,15 +48,16 @@ const Feed = ({
   data: { loading, error, allArticles, allDossiers, allQuestions }
 }) => {
   // TODO: Implement more dynamic content mixing.
-  const featuredDossier = allDossiers[0]
-  const articlesPrio1 = allArticles.slice(0, 2)
-  const articlesPrio2 = allArticles.slice(2, 100)
 
   return (
     <Loader
       loading={loading}
       error={error}
       render={() => {
+        const featuredDossier = allDossiers[0]
+        const articlesPrio1 = allArticles.slice(0, 2)
+        const articlesPrio2 = allArticles.slice(2, 100)
+
         return (
           <div>
             {articlesPrio1.map(article =>
