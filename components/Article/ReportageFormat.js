@@ -107,7 +107,7 @@ const ReportageFormat = ({ article, me, share }) => {
         />}
       {!!share && <SharedBy share={share} me={me} />}
       <Body article={article} />
-      {photos.length &&
+      {!!photos.length &&
         <div>
           {photos.map(photo =>
             <div>
