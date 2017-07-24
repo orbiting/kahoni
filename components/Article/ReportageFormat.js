@@ -4,6 +4,7 @@ import ActionBar from '../ActionBar/'
 import Author from './Author'
 import Time from './Time'
 import SharedBy from './SharedBy'
+import Body from './Body'
 
 import { css } from 'glamor'
 
@@ -78,9 +79,7 @@ const ReportageFormat = ({ article, me, share }) => {
           emailSubject={article.title}
         />}
       {!!share && <SharedBy share={share} me={me} />}
-      <P>
-        {article.body}
-      </P>
+      <Body article={article} />
       {photos.length &&
         <div>
           {photos.map(photo =>

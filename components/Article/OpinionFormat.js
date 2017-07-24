@@ -4,6 +4,7 @@ import ActionBar from '../ActionBar/'
 import Author from './Author'
 import Time from './Time'
 import SharedBy from './SharedBy'
+import Body from './Body'
 
 import { css } from 'glamor'
 
@@ -58,9 +59,7 @@ const OpinionFormat = ({ article, me, share }) => {
           emailSubject={article.title}
         />}
       {!!share && <SharedBy share={share} me={me} />}
-      <P>
-        {article.body}
-      </P>
+      <Body article={article} />
       <Interaction.P>
         {article.dossiers.map(dossier =>
           <Link

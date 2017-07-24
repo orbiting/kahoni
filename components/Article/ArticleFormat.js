@@ -4,6 +4,7 @@ import ActionBar from '../ActionBar/'
 import Author from './Author'
 import Time from './Time'
 import SharedBy from './SharedBy'
+import Body from './Body'
 
 import { Link } from '../../routes'
 import { PUBLIC_BASE_URL } from '../../constants'
@@ -52,9 +53,7 @@ const ArticleFormat = ({ article, share, me }) => {
           emailSubject={article.title}
         />}
       {!!share && <SharedBy share={share} me={me} />}
-      <P>
-        {article.body}
-      </P>
+      <Body article={article} />
     </article>
   )
 }
