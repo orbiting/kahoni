@@ -31,7 +31,7 @@ const allArticles = gql`
         title
       }
     }
-    allQuestions(first: 1, orderBy: votes_DESC) {
+    allQuestions(first: 2, orderBy: votes_DESC) {
       createdAt
       id
       body
@@ -87,7 +87,7 @@ const Feed = ({
                 )
               } else if (item.__typename === 'Question') {
                 return (
-                  <div>
+                  <div style={{ marginTop: 40 }}>
                     <Label>
                       <Link route="forum">
                         <a {...linkRule}>Offene Frage</a>
