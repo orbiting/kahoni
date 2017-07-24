@@ -6,7 +6,7 @@ import { gql, graphql } from 'react-apollo'
 import { descending, max } from 'd3-array'
 
 import { Link } from '../../routes'
-import { Interaction, linkRule } from '@project-r/styleguide'
+import { Interaction, Label, linkRule } from '@project-r/styleguide'
 
 const allArticles = gql`
   query allArticles {
@@ -72,12 +72,6 @@ const Feed = ({
           })
         ].sort((a, b) => descending(a.createdAt, b.createdAt))
 
-        // __typename
-
-        const featuredDossier = allDossiers[0]
-        const articlesPrio1 = allArticles.slice(0, 2)
-        const articlesPrio2 = allArticles.slice(2, 100)
-
         return (
           <div>
             {items.map(item => {
@@ -93,7 +87,11 @@ const Feed = ({
               } else if (item.__typename === 'Question') {
                 return (
                   <div>
-                    <Interaction.H2>Offene Frage</Interaction.H2>
+                    <Label>
+                      <Link route="forum">
+                        <a {...linkRule}>Offene Frage</a>
+                      </Link>
+                    </Label>
                     <Interaction.P key={item.id}>
                       <Link route="question" params={{ id: item.id }}>
                         <a {...linkRule}>
@@ -101,9 +99,6 @@ const Feed = ({
                         </a>
                       </Link>
                     </Interaction.P>
-                    <Link route="forum">
-                      <a {...linkRule}>Alle offenen Fragen</a>
-                    </Link>
                   </div>
                 )
               }
