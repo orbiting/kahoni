@@ -51,6 +51,7 @@ const article = gql`
       readingMinutes
       slug
       title
+      theme
       updatedAt
     }
   }

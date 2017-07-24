@@ -31,11 +31,11 @@ const Badge = ({ show }) => {
   }
 }
 
-const Author = ({ name, showBadge }) => {
+const Author = ({ name, showBadge, color }) => {
   return (
     <div>
       <Badge show={showBadge} />
-      <Interaction.P>
+      <Interaction.P style={color && { color: color }}>
         <span {...styles.name}>Von {name}</span> <A href="#">Folgen</A>
       </Interaction.P>
     </div>
