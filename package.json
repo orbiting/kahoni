@@ -9,6 +9,7 @@
     "dev": "NODE_ENV=development nodemon -w server.js -w routes.js -w server server.js",
     "build": "next build",
     "start": "NODE_ENV=production node server.js",
+    "heroku-postbuild": "npm run build",
     "translations": "gsheets --key=1V6wxlflk2wAnL2-PS5L1kxqg0wJP8uOi5RvxkhSX4i0 --title=live --pretty --out lib/translations.json"
   },
   "dependencies": {
