@@ -1,23 +1,32 @@
 import React from 'react'
 import ArticleSnippet from '../ArticleSnippet'
+import DossierSnippet from '../DossierSnippet'
 import Loader from '../Loader'
 import { gql, graphql } from 'react-apollo'
+import { descending, max } from 'd3-array'
 
 import { Link } from '../../routes'
 import { Interaction, linkRule } from '@project-r/styleguide'
 
 const allArticles = gql`
   query allArticles {
-    allArticles {
+    allArticles(filter: { dossiers_none: {} }) {
       id
       author
       createdAt
-      updatedAt
       readingMinutes
       slug
       title
-      dossiers {
+    }
+    allDossiers {
+      title
+      slug
+      articles {
         id
+        author
+        createdAt
+        readingMinutes
+        slug
         title
       }
     }
@@ -30,34 +39,75 @@ const allArticles = gql`
   }
 `
 
-const Feed = ({ data: { loading, error, allArticles, allQuestions } }) => {
+const Feed = ({
+  data: { loading, error, allArticles, allDossiers, allQuestions }
+}) => {
+  // TODO: Implement more dynamic content mixing.
+
   return (
     <Loader
       loading={loading}
       error={error}
       render={() => {
+        const items = [
+          ...allArticles.map(d => {
+            return {
+              ...d,
+              createdAt: new Date(d.createdAt)
+            }
+          }),
+          ...allDossiers.map(dossier => {
+            return {
+              ...dossier,
+              createdAt: new Date(
+                max(dossier.articles, d => new Date(d.createdAt).getTime())
+              )
+            }
+          }),
+          ...allQuestions.map(d => {
+            return {
+              ...d,
+              createdAt: new Date(d.createdAt)
+            }
+          })
+        ].sort((a, b) => descending(a.createdAt, b.createdAt))
+
+        // __typename
+
+        const featuredDossier = allDossiers[0]
+        const articlesPrio1 = allArticles.slice(0, 2)
+        const articlesPrio2 = allArticles.slice(2, 100)
+
         return (
           <div>
-            {allArticles.map(article =>
-              <ArticleSnippet key={article.id} article={article} />
-            )}
-            <br />
-            <br />
-            <Interaction.H2>Offene Frage</Interaction.H2>
-            {allQuestions.map(question =>
-              <Interaction.P key={question.id}>
-                <Link route="question" params={{ id: question.id }}>
-                  <a {...linkRule}>
-                    {question.body}
-                  </a>
-                </Link>
-              </Interaction.P>
-            )}
-            <br />
-
-            <Link route="forum">
-              <a {...linkRule}>Alle offenen Fragen</a>
-            </Link>
+            {items.map(item => {
+              if (item.__typename === 'Article') {
+                return <ArticleSnippet key={item.id} article={item} />
+              } else if (item.__typename === 'Dossier') {
+                if (item.articles.length > 1) {
+                  return <DossierSnippet key={item.id} dossier={item} />
+                }
+                return (
+                  <ArticleSnippet key={item.id} article={item.articles[0]} />
+                )
+              } else if (item.__typename === 'Question') {
+                return (
+                  <div>
+                    <Interaction.H2>Offene Frage</Interaction.H2>
+                    <Interaction.P key={item.id}>
+                      <Link route="question" params={{ id: item.id }}>
+                        <a {...linkRule}>
+                          {item.body}
+                        </a>
+                      </Link>
+                    </Interaction.P>
+                    <Link route="forum">
+                      <a {...linkRule}>Alle offenen Fragen</a>
+                    </Link>
+                  </div>
+                )
+              }
+            })}
           </div>
         )
       }}

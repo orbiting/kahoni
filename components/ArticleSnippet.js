@@ -32,7 +32,6 @@ const styles = {
 const timeFormat = swissTime.format('%d. %B %Y')
 
 const ArticleSnippet = ({ article }) => {
-  const date = new Date(article.updatedAt)
   return (
     <article {...styles.article}>
       <H2 style={{ marginBottom: 0 }}>
@@ -42,7 +41,7 @@ const ArticleSnippet = ({ article }) => {
           </a>
         </Link>
       </H2>
-      <Time date={article.updatedAt} readingMinutes={article.readingMinutes} />
+      <Time date={article.createdAt} readingMinutes={article.readingMinutes} />
       <Link route="article" params={{ slug: article.slug }}>
         <a {...linkRule}>Lesen</a>
       </Link>
