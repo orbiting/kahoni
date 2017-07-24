@@ -5,7 +5,7 @@ import Loader from '../Loader'
 import { gql, graphql } from 'react-apollo'
 
 import { Link } from '../../routes'
-import { Interaction, Label, linkRule } from '@project-r/styleguide'
+import { Interaction, linkRule } from '@project-r/styleguide'
 
 const allArticles = gql`
   query allArticles {
