@@ -22,7 +22,6 @@ import {
 } from '@project-r/styleguide'
 
 // TODO: Implement light/dark theme.
-// TODO: Implement photo for cover.
 
 const styles = {
   cover: css({
@@ -41,16 +40,23 @@ const styles = {
     left: 0,
     position: 'absolute',
     right: 0
+  }),
+  photo: css({
+    backgroundSize: 'cover',
+    height: '250px',
+    width: '250px'
   })
 }
 
 const ReportageFormat = ({ article, me, share }) => {
-  const mainImageStyle = article.mainImage
-    ? { backgroundImage: 'url(' + article.mainImage.url + ')' }
+  const coverPhoto = article.photos[0]
+  const coverPhotoStyle = coverPhoto
+    ? { backgroundImage: 'url(' + coverPhoto.file.url + ')' }
     : ''
+  let photos = article.photos.length ? [...article.photos.slice(1)] : []
   return (
     <article>
-      <div {...styles.cover} style={mainImageStyle}>
+      <div {...styles.cover} style={coverPhotoStyle}>
         <H1 style={{ textAlign: 'center' }}>
           {article.title}
         </H1>
@@ -75,6 +81,20 @@ const ReportageFormat = ({ article, me, share }) => {
       <P>
         {article.body}
       </P>
+      {photos.length &&
+        <div>
+          {photos.map(photo =>
+            <div>
+              <div
+                {...styles.photo}
+                style={{ backgroundImage: 'url(' + photo.file.url + ')' }}
+              />
+              <Label>
+                {photo.caption}
+              </Label>
+            </div>
+          )}
+        </div>}
       <Interaction.P>
         {article.dossiers.map(dossier =>
           <Link
