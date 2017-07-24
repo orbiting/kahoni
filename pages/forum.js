@@ -7,11 +7,15 @@ import { Link } from '../routes'
 
 import { Interaction, linkRule } from '@project-r/styleguide'
 
+import Question from '../components/Question'
+
 const allQuestions = gql`
   query allQuestions {
-    allQuestions {
+    allQuestions(orderBy: votes_DESC) {
       id
       body
+      createdAt
+      votes
     }
   }
 `
@@ -28,13 +32,7 @@ const QuestionList = graphql(
           return (
             <div>
               {allQuestions.map(question =>
-                <Interaction.P key={question.id}>
-                  <Link route="question" params={{ id: question.id }}>
-                    <a {...linkRule}>
-                      {question.body}
-                    </a>
-                  </Link>
-                </Interaction.P>
+                <Question question={question} key={question.id} />
               )}
             </div>
           )

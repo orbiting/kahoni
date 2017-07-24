@@ -15,9 +15,13 @@ const Comments = ({ comments }) => {
   // TODO: Implement comment author and interactions
   return (
     <div {...styles.comments}>
-      <Interaction.H3>
-        {comments.length} Kommentare
-      </Interaction.H3>
+      {!!comments.length
+        ? <Interaction.H3>
+            {comments.length} Kommentare
+          </Interaction.H3>
+        : <Interaction.H3>
+            Hier könnte eine Kommentarspalte kommen
+          </Interaction.H3>}
       {comments.map(comment =>
         <Interaction.P key={comment.id}>
           {comment.body}

@@ -9,6 +9,7 @@ import { css } from 'glamor'
 import { gql, graphql } from 'react-apollo'
 
 import { PUBLIC_BASE_URL, STATIC_BASE_URL } from '../constants'
+import QuestionView from '../components/Question'
 
 import {
   H1,
@@ -29,6 +30,7 @@ const question = gql`
         id
         body
       }
+      createdAt
       votes
     }
   }
@@ -47,9 +49,7 @@ const QuestionPage = graphql(
             <Link route="forum">
               <a {...linkRule}>Offenen Fragen</a>
             </Link>
-            <Interaction.H2>
-              {Question.body}
-            </Interaction.H2>
+            <QuestionView question={Question} isDetail />
             <Comments comments={Question.comments} />
             <br />
           </div>

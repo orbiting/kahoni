@@ -1,6 +1,7 @@
 import React from 'react'
 import ArticleSnippet from '../ArticleSnippet'
 import DossierSnippet from '../DossierSnippet'
+import Question from '../Question'
 import Loader from '../Loader'
 import { gql, graphql } from 'react-apollo'
 import { descending, max } from 'd3-array'
@@ -92,13 +93,7 @@ const Feed = ({
                         <a {...linkRule}>Offene Frage</a>
                       </Link>
                     </Label>
-                    <Interaction.P key={item.id}>
-                      <Link route="question" params={{ id: item.id }}>
-                        <a {...linkRule}>
-                          {item.body}
-                        </a>
-                      </Link>
-                    </Interaction.P>
+                    <Question question={item} />
                   </div>
                 )
               }
