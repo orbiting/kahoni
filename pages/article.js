@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from '../routes'
 import Frame from '../components/Frame'
+import Meta from '../components/Frame/Meta'
 import Loader from '../components/Loader'
 import ArticleElement from '../components/Article'
 import withData from '../lib/withData'
@@ -81,7 +82,22 @@ const ArticlePage = compose(
       error={error}
       render={() => {
         if (Article) {
-          return <ArticleElement article={Article} me={me} share={share} />
+          return (
+            <div>
+              {!!share &&
+                <Meta
+                  data={{
+                    image: `${STATIC_BASE_URL}/static/social/share-example.png`,
+                    title: Article.title,
+                    description: Article.lead,
+                    url:
+                      PUBLIC_BASE_URL +
+                      `/artikel/${article.slug}?share=${share}`
+                  }}
+                />}
+              <ArticleElement article={Article} me={me} share={share} />
+            </div>
+          )
         } else {
           return <P>Artikel nicht gefunden</P>
         }

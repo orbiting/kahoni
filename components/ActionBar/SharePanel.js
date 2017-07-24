@@ -7,7 +7,7 @@ import { css, merge, style } from 'glamor'
 
 import { mediaQueries, Label, Interaction } from '@project-r/styleguide'
 
-import { PUBLIC_BASE_URL } from '../../constants'
+import { PUBLIC_BASE_URL, STATIC_BASE_URL } from '../../constants'
 
 const styles = {
   panel: css({
@@ -34,7 +34,7 @@ const SharePanel = ({ url, emailSubject }) => {
       <Label>Vorschau</Label>
       <br />
       <img
-        src="/static/social/share-example.png"
+        src={`${STATIC_BASE_URL}/static/social/share-example.png`}
         style={{ width: '100%', maxWidth: 400 }}
       />
       <br />
