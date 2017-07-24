@@ -39,6 +39,10 @@ const article = gql`
       format
       id
       lead
+      mainImage {
+        id
+        url
+      }
       readingMinutes
       slug
       title

@@ -27,6 +27,7 @@ import {
 const styles = {
   cover: css({
     backgroundColor: '#ddd',
+    backgroundSize: 'cover',
     minHeight: '500px',
     padding: '50px 20px 180px 20px',
     position: 'relative',
@@ -44,9 +45,12 @@ const styles = {
 }
 
 const ReportageFormat = ({ article, me, share }) => {
+  const mainImageStyle = article.mainImage
+    ? { backgroundImage: 'url(' + article.mainImage.url + ')' }
+    : ''
   return (
     <article>
-      <div {...styles.cover}>
+      <div {...styles.cover} style={mainImageStyle}>
         <H1 style={{ textAlign: 'center' }}>
           {article.title}
         </H1>
