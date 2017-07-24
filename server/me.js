@@ -11,14 +11,16 @@ module.exports = (req, res) => {
 
   const cookies =
     (req.headers.cookie && require('cookie').parse(req.headers.cookie)) || {}
-  const cmsQuery = parse(`{
-    Session(id: "${cookies[COOKIE_NAME]}") {
-      email
-      member {
-        id
+  const cmsQuery = parse(`
+    query($id: ID!){
+      Session(id: $id) {
+        email
+        member {
+          id
+        }
       }
     }
-  }`)
+  `)
 
   getFirstSelectionSet(cmsQuery).selections.find(
     s => s.name.value === 'member'
@@ -26,7 +28,9 @@ module.exports = (req, res) => {
 
   return cmsFetchAsAdmin({
     query: print(cmsQuery),
-    variables: null,
+    variables: {
+      id: cookies[COOKIE_NAME]
+    },
     operationName: null
   })
     .then(result => {
