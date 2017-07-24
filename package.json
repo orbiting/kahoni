@@ -1,6 +1,10 @@
 {
   "name": "kahoni",
   "version": "0.1.0",
+  "engines": {
+    "node": "8.1.4",
+    "npm": "5.0.3"
+  },
   "scripts": {
     "dev": "NODE_ENV=development nodemon -w server.js -w routes.js -w server server.js",
     "build": "next build",
