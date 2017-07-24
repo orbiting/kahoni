@@ -25,11 +25,16 @@ const Time = ({ date, readingMinutes, color }) => {
   return (
     <div>
       <Interaction.P style={color && { color: color }}>
-        <span {...styles.date}>{timeFormat(articleDate)}</span>
-        <span {...styles.icon}>
-          <IconLink icon={'time'} size={12} fill={color && color} />
+        <span {...styles.date}>
+          {timeFormat(articleDate)}
         </span>
-        {readingMinutes}m
+        {readingMinutes &&
+          <span>
+            <span {...styles.icon}>
+              <IconLink icon={'time'} size={12} fill={color && color} />
+            </span>
+            {readingMinutes}m
+          </span>}
       </Interaction.P>
     </div>
   )

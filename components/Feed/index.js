@@ -1,10 +1,11 @@
 import React from 'react'
 import ArticleSnippet from '../ArticleSnippet'
+import DossierSnippet from '../DossierSnippet'
 import Loader from '../Loader'
 import { gql, graphql } from 'react-apollo'
 
 import { Link } from '../../routes'
-import { Interaction, linkRule } from '@project-r/styleguide'
+import { Interaction, Label, linkRule } from '@project-r/styleguide'
 
 const allArticles = gql`
   query allArticles {
@@ -21,6 +22,19 @@ const allArticles = gql`
         title
       }
     }
+    allDossiers {
+      id
+      lead
+      slug
+      title
+      articles {
+        author
+        id
+        title
+        slug
+        updatedAt
+      }
+    }
     allQuestions(first: 1, orderBy: votes_DESC) {
       createdAt
       id
@@ -30,7 +44,14 @@ const allArticles = gql`
   }
 `
 
-const Feed = ({ data: { loading, error, allArticles, allQuestions } }) => {
+const Feed = ({
+  data: { loading, error, allArticles, allDossiers, allQuestions }
+}) => {
+  // TODO: Implement more dynamic content mixing.
+  const featuredDossier = allDossiers[0]
+  const articlesPrio1 = allArticles.slice(0, 2)
+  const articlesPrio2 = allArticles.slice(2, 100)
+
   return (
     <Loader
       loading={loading}
@@ -38,11 +59,13 @@ const Feed = ({ data: { loading, error, allArticles, allQuestions } }) => {
       render={() => {
         return (
           <div>
-            {allArticles.map(article =>
+            {articlesPrio1.map(article =>
               <ArticleSnippet key={article.id} article={article} />
             )}
-            <br />
-            <br />
+            <DossierSnippet dossier={featuredDossier} />
+            {articlesPrio2.map(article =>
+              <ArticleSnippet key={article.id} article={article} />
+            )}
             <Interaction.H2>Offene Frage</Interaction.H2>
             {allQuestions.map(question =>
               <Interaction.P key={question.id}>
@@ -53,8 +76,6 @@ const Feed = ({ data: { loading, error, allArticles, allQuestions } }) => {
                 </Link>
               </Interaction.P>
             )}
-            <br />
-
             <Link route="forum">
               <a {...linkRule}>Alle offenen Fragen</a>
             </Link>
