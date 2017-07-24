@@ -33,6 +33,8 @@ export default class MyDocument extends Document {
           <style dangerouslySetInnerHTML={{ __html: fontFaces() }} />
           {css ? <style dangerouslySetInnerHTML={{ __html: css }} /> : null}
           <meta name="author" content="Republik" />
+          <meta name="robots" content="noindex" />
+          <title>Kahoni Prototype</title>
           <link
             rel="apple-touch-icon"
             sizes="180x180"
