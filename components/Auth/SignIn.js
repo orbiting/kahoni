@@ -173,7 +173,9 @@ const signInMutation = gql`
 export const withSignIn = graphql(signInMutation, {
   props: ({ mutate }) => ({
     signIn: (email, context = 'signIn') =>
-      mutate({ variables: { email, context } })
+      mutate({
+        variables: { email, context }
+      })
   })
 })
 

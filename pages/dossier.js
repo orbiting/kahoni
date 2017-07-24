@@ -4,11 +4,11 @@ import ActionBar from '../components/ActionBar/'
 import ArticleSnippet from '../components/ArticleSnippet'
 import Frame from '../components/Frame'
 import Loader from '../components/Loader'
-import NewsletterBox from '../components/NewsletterBox'
 import { Link } from '../routes'
 import withData from '../lib/withData'
 import withMe from '../lib/withMe'
 import { compose } from 'redux'
+import SignUp from '../components/Marketing/SignUp'
 
 import { gql, graphql } from 'react-apollo'
 
@@ -73,7 +73,7 @@ const Dossier = compose(
                     </Interaction.P>
                     <br />
                     <br />
-                    <NewsletterBox />
+                    <SignUp />
                   </div>}
             </div>
           )

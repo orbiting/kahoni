@@ -47,7 +47,7 @@ const DossierSnippet = ({ dossier }) => {
       </Interaction.H2>
       <div>
         {articles.map(article =>
-          <div {...styles.article}>
+          <div key={article.id} {...styles.article}>
             <H2 style={{ marginBottom: 0 }}>
               <Link route="article" params={{ slug: article.slug }}>
                 <a {...styles.titleLink}>

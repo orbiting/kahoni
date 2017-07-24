@@ -20,6 +20,7 @@ const allArticles = gql`
       title
     }
     allDossiers {
+      id
       title
       slug
       articles {
@@ -87,7 +88,7 @@ const Feed = ({
                 )
               } else if (item.__typename === 'Question') {
                 return (
-                  <div style={{ marginTop: 40 }}>
+                  <div key={item.id} style={{ marginTop: 40 }}>
                     <Label>
                       <Link route="forum">
                         <a {...linkRule}>Offene Frage</a>
