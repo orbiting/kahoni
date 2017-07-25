@@ -16,6 +16,20 @@ const styles = {
       borderTop: `1px solid ${colors.divider}`,
       borderBottom: `1px solid ${colors.divider}`
     }
+  }),
+  count: css({
+    display: 'inline-block',
+    marginLeft: '-5px',
+    verticalAlign: 'top'
+  }),
+  icon: css({
+    padding: '10px 10px',
+    ':first-child': {
+      paddingLeft: 0
+    },
+    ':last-child': {
+      paddingRight: 0
+    }
   })
 }
 
@@ -38,12 +52,20 @@ class ActionBar extends Component {
     const { fill, url, emailSubject } = this.props
     return (
       <div {...styles.actionbar}>
-        <IconLink fill={fill} icon={'bookmark'} />
-        <span onClick={this.toggleSharePanel}>
+        <span {...styles.icon}>
+          <IconLink fill={fill} icon={'bookmark'} />
+        </span>
+        <span onClick={this.toggleSharePanel} {...styles.icon}>
           <IconLink fill={fill} icon={'share'} url={url} />
         </span>
-        <IconLink fill={fill} icon={'heart'} />
-        <IconLink fill={fill} icon={'comment'} />
+        <span {...styles.icon}>
+          <IconLink fill={fill} icon={'heart'} />{' '}
+          <span {...styles.count}>23</span>
+        </span>
+        <span {...styles.icon}>
+          <IconLink fill={fill} icon={'comment'} />{' '}
+          <span {...styles.count}>7</span>
+        </span>
         {this.state.sharePanelActive &&
           <SharePanel url={url} emailSubject={emailSubject} />}
       </div>
