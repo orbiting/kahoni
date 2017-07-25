@@ -42,7 +42,7 @@ const ArticleFormat = ({ article, share, me }) => {
         {article.lead}
       </Lead>
       <Author name={article.author} />
-      <Time date={article.updatedAt} readingMinutes={article.readingMinutes} />
+      <Time date={article.createdAt} readingMinutes={article.readingMinutes} />
       {me &&
         <ActionBar
           url={

@@ -44,7 +44,7 @@ const OpinionFormat = ({ article, me, share }) => {
         <div>
           <Author name={article.author} showBadge={true} />
           <Time
-            date={article.updatedAt}
+            date={article.createdAt}
             readingMinutes={article.readingMinutes}
           />
         </div>
