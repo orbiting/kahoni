@@ -74,6 +74,7 @@ const ArticlePage = compose(
       </div>
     )
   }
+
   // TODO: Create component for Comment.
   // TODO: Use url.asPath for ActionBar url.
   return (
@@ -92,7 +93,7 @@ const ArticlePage = compose(
                     description: Article.lead,
                     url:
                       PUBLIC_BASE_URL +
-                      `/artikel/${article.slug}?share=${share}`
+                      `/artikel/${Article.slug}?share=${share}`
                   }}
                 />}
               <ArticleElement article={Article} me={me} share={share} />
