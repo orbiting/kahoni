@@ -1,6 +1,5 @@
 import React from 'react'
 
-import ActionBar from '../ActionBar/'
 import Author from './Author'
 import Time from './Time'
 import Body from './Body'
@@ -52,7 +51,6 @@ const PhotoLead = ({ article }) => {
   } else if (article.theme == 'LIGHT') {
     opaqueColor = 'rgba(255,255,255,.75)'
   }
-  let photos = article.photos.length ? [...article.photos.slice(1)] : []
 
   return (
     <div {...styles.cover} style={coverPhotoStyle}>
