@@ -13,12 +13,13 @@ const styles = {
   cover: css({
     backgroundColor: '#ddd',
     backgroundSize: 'cover',
+    marginTop: '-40px',
     minHeight: '500px',
     padding: '50px 20px 180px 20px',
     position: 'relative',
     textAlign: 'center',
     [mediaQueries.onlyS]: {
-      margin: '0 -20px'
+      margin: '-40px -20px 0 -20px'
     }
   }),
   opaqueHelper: css({
