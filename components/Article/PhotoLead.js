@@ -2,7 +2,6 @@ import React from 'react'
 
 import Author from './Author'
 import Time from './Time'
-import Body from './Body'
 
 import { css } from 'glamor'
 
