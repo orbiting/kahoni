@@ -41,7 +41,7 @@ const PhotoLead = ({ article }) => {
   const coverPhoto = article.photos[0]
   const coverPhotoStyle = coverPhoto
     ? { backgroundImage: 'url(' + coverPhoto.file.url + ')' }
-    : ''
+    : {}
   let opaqueColor = ''
   let textColor = '#000'
   if (article.theme == 'DARK') {
@@ -58,19 +58,27 @@ const PhotoLead = ({ article }) => {
           {...styles.opaqueHelper}
           style={{ backgroundColor: opaqueColor }}
         />}
-      <H1
-        style={{
-          position: 'relative',
-          zIndex: 3,
-          color: textColor
-        }}
-      >
-        {article.title}
-      </H1>
+      <Link route="article" params={{ slug: article.slug }}>
+        <H1
+          style={{
+            position: 'relative',
+            zIndex: 3,
+            color: textColor
+          }}
+        >
+          <a
+            style={{
+              cursor: 'pointer'
+            }}
+          >
+            {article.title}
+          </a>
+        </H1>
+      </Link>
       <div {...styles.meta}>
         <Author name={article.author} showBadge={true} color={textColor} />
         <Time
-          date={article.updatedAt}
+          date={article.createdAt}
           readingMinutes={article.readingMinutes}
           color={textColor}
         />

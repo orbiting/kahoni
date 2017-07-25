@@ -53,7 +53,7 @@ const article = gql`
       slug
       title
       theme
-      updatedAt
+      createdAt
     }
   }
 `

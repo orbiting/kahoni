@@ -1,6 +1,7 @@
 import React from 'react'
 import ArticleSnippet from '../ArticleSnippet'
 import DossierSnippet from '../DossierSnippet'
+import PhotoLead from '../Article/PhotoLead'
 import Question from '../Question'
 import Loader from '../Loader'
 import { gql, graphql } from 'react-apollo'
@@ -15,8 +16,19 @@ const allArticles = gql`
       id
       author
       createdAt
+      format
+      photos {
+        id
+        author
+        caption
+        file {
+          id
+          url
+        }
+      }
       readingMinutes
       slug
+      theme
       title
     }
     allDossiers {
@@ -78,6 +90,9 @@ const Feed = ({
           <div>
             {items.map(item => {
               if (item.__typename === 'Article') {
+                if (item.format === 'REPORTAGE') {
+                  return <PhotoLead key={item.id} article={item} />
+                }
                 return <ArticleSnippet key={item.id} article={item} />
               } else if (item.__typename === 'Dossier') {
                 if (item.articles.length > 1) {
