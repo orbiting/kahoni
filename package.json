@@ -13,7 +13,7 @@
     "translations": "gsheets --key=1V6wxlflk2wAnL2-PS5L1kxqg0wJP8uOi5RvxkhSX4i0 --title=live --pretty --out lib/translations.json"
   },
   "dependencies": {
-    "@project-r/styleguide": "0.0.1",
+    "@project-r/styleguide": "^1.0.1",
     "apollo-fetch": "^0.3.0",
     "body-parser": "^1.17.2",
     "cookie": "^0.3.1",
