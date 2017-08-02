@@ -23,7 +23,7 @@
     "d3-time-format": "^2.0.5",
     "email-validator": "^1.0.7",
     "express": "^4.15.3",
-    "glamor": "^2.20.24",
+    "glamor": "^2.20.37",
     "graphql": "^0.9.3",
     "graphql-server-express": "^1.0.2",
     "isomorphic-fetch": "^2.2.1",
